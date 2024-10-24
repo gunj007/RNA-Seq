@@ -15,12 +15,12 @@
     
 #### 1. a. Quality Control: 
 - [X] [Fastqc](https://github.com/gunj007/RNA-Seq/tree/main/qcreports/rawfq_qc) Performed quality control using FastQC on rawfastq.gz 16
-- [X] [MultiQC](file:///C:/Users/GUNJAN/Desktop/biostateAi/RNA-Seq/qcreports/rawfq_qc/multiqc_report.html#fastqc_adapter_content) Provided a summary report using MultiQC, adapter contamination seen. 
+- [X] [MultiQC](https://github.com/gunj007/RNA-Seq/blob/main/qcreports/rawfq_qc/multiqc_report.html) Provided a summary report using MultiQC, adapter contamination seen. 
 #### b. Adapter Trimming: 
 - [X] using fastp. 
-- [x] Provide a summary report detailing the percentage of reads trimmed. [Multiqc](file:///C:/Users/GUNJAN/Desktop/biostateAi/RNA-Seq/qcreports/trimfq_qc/multiqc_report.html#fastqc_adapter_content)
+- [x] Provide a summary report detailing the percentage of reads trimmed. [Multiqc](https://github.com/gunj007/RNA-Seq/blob/main/qcreports/trimfq_qc/multiqc_report.html)
 #### c. Genome Preparation: 
-- [X] Prepared a [genome index using HISAT2](https://github.com/gunj007/RNA-Seq/edit/main/README.md#genome-build--hisat2-genome-index) 
+- [X] Prepared a [genome index using HISAT2](https://github.com/gunj007/RNA-Seq#genome-build--hisat2-genome-index) 
 #### d. Alignment and Mapping: 
 - [X] Performed read alignment using HISAT2
 - [X] Provide alignment statistics and its visualization report, including the percentage of aligned reads, mapped reads, and potential issues with multi-mapping. 
