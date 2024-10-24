@@ -18,12 +18,12 @@ mkdir -p "$fastp_dir"
 # Step 1: Run FastQC on all fastq.gz files
 echo "Running FastQC..."
 echo -e "\n"
-#fastqc -o "$qc_dir" "$input_dir"/*.fastq.gz --threads 7 --quiet
+fastqc -o "$qc_dir" "$input_dir"/*.fastq.gz --threads 7 --quiet
 
 # Step 2: Run MultiQC to aggregate FastQC reports
 echo "Running MultiQC..."
 echo -e "\n"
-#multiqc -o "$qc_dir" "$qc_dir"/*.zip
+multiqc -o "$qc_dir" "$qc_dir"/*.zip
 
 echo "QC1 process completed!"
 echo -e "\n"
@@ -65,7 +65,7 @@ mkdir -p "$qc2_dir"
 # Step 4: Re-run FastQC on all fastq.gz files which are trimmed rm -t as OOM
 echo "Running FastQC for trimmed fastq files..."
 echo -e "\n"
-#fastqc -o "$qc2_dir" "$input_dir"/fastp/*.fastq.gz 
+fastqc -o "$qc2_dir" "$input_dir"/fastp/*.fastq.gz -t 5 -q
 
 # Step 5: Run MultiQC to aggregate Trimmed FastQC reports
 echo "Running MultiQC..."
