@@ -50,12 +50,12 @@ fi
 # Step 3: Perform hisat2 alignment for each paired-end read in fastp folder
 echo "Running HISAT2 for all paired-end reads..."
 
-for r1 in "$fastp_dir"/*_R1.fastq.gz; do
+for r1 in "$fastp_dir"/*R1.fastq.gz; do
   # Extract base name (without _R1.fastq.gz)
-  base_name=$(basename "$r1" _R1.fastq.gz)
+  base_name=$(basename "$r1" R1.fastq.gz)
   
   # Corresponding R2 file
-  r2="${fastp_dir}/${base_name}_R2.fastq.gz"
+  r2="${fastp_dir}/${base_name}R2.fastq.gz"
   
   # Output SAM and BAM filenames
   output_sam="${sam_dir}/${base_name}.sam"
