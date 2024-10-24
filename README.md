@@ -171,14 +171,14 @@ sed '1d' counts.txt > counts.tsv
 ---
   
 ####  3.2 Scripts:
-  - QC Script:
+  - QC Script: [qc.sh](https://github.com/gunj007/RNA-Seq/blob/main/scripts/qc.sh)
 >This script performs _fastqc-multiqc-fastp-fastqc-multiqc_ for multiple files. Just provide input folder containing '.fast.gz', it will create a folder name `qcreports/` and it will create `qcreportstrim/` inside `fastp/` for trimmed reads
 
 ```batchfile
 bash scripts/qc.sh ~/rawfastq
 ```
 
-  - Alignment Script: 
+  - Alignment Script: [hisat2.sh](https://github.com/gunj007/RNA-Seq/blob/main/scripts/hisat2.sh)
 >This scripts performs _hisat2-sam_to_bam_ provide trimmed fastq's folder ie. `fastp/` with the genome file and annotation file, it creates bam folder inside the input directory 
 ```batchfile
 bash scripts/hisat2.sh ~/rawfastq ~/genome ~/annotations.gtf
@@ -186,7 +186,7 @@ bash scripts/hisat2.sh ~/rawfastq ~/genome ~/annotations.gtf
 ---
 
 ####  3.3 Automation:
-> To perform standard gene count matrix from raw FASTQ files run the following command
+> To perform standard gene count matrix from raw FASTQ files run the [count.sh](https://github.com/gunj007/RNA-Seq/blob/main/scripts/count.sh)] script with the following command
 
 ```
 #run "bash path_to_script_folder/count.sh path_to_rawfastq_folder/ path_to_genome_folder/ path_to_gtf-gff_file/.gtf
