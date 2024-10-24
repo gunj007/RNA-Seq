@@ -1,2 +1,2 @@
-/qcreports/fastp/*.json
-/qcreports/fastqc/*.zip
+/qcreports/rawfq_qc/fastp/*.json
+/qcreports/trimfq_qc/fastqc/*.zip
