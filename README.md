@@ -112,8 +112,13 @@ multiqc -o output_dir *zip
 ```
 
   - Fastp:
+    -  `--adapter_sequence` the adapter for read1. For SE data, if not specified, the adapter will be auto-detected. For PE data, this is used if R1/R2 are found not overlapped. (string [=auto]
+    -  `--adapter_sequence_r2` the adapter for read2 (PE data only). This is used if R1/R2 are found not overlapped. If not specified, it will be the same as <adapter_sequence>
+
 ```batchfile
-fastp -i _R1.fastq.gz -I _R2.fastq.gz -o _R1.fastq.gz -O _R2.fastq.gz --threads 10
+ fastp -i "$r1" -I "$r2" -o "$out_r1" -O "$out_r2" \
+  -adapter_sequence=AGATCGGAAGAGC --adapter_sequence_r2=AGATCGGAAGAGC \
+  -h "$html_report" -j "$json_report" > "$log_file" 2>&1 
 ```
 
   - Samtools:
