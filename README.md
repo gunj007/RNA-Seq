@@ -25,9 +25,14 @@ There are many readyly available RNA-seq pipeline workflow eg. [nf-core](https:/
 7. Visualization: [IGV (Integrative Genomics Viewer)](https://igv.org/doc/desktop/), pheatmap, ggplot2(R packages)
 8. Single-Cell RNA-seq Specific Tools: CellRanger, Seurat, & SC3
 
+***
+
 #### 1.2 Workflow used for this Analysis :
 
 >  For this RNA-seq analysis, **_FastQC_** is used for initial quality control, with **_MultiQC_** summarizing the results. **_fastp_** trims adapters and low-quality bases to improve read quality before alignment with **_HISAT2_**. Differential expression analysis is done using **_DESeq2_** R package. For gene ontology (GO) and pathway analysis (KEGG), **_GSEA_** and **_clusterProfiler_** are employed, with **_pathview_** used to visualize pathways. Visualization tools include **_enrichplot, emapplot,EnhancedVolcano_** for enrichment and DEG results, while **_pheatmap, ggplot2_** handle heatmaps and other graphical representations of the data.
+
+
+***
 
 </details>
   
@@ -40,6 +45,7 @@ There are many readyly available RNA-seq pipeline workflow eg. [nf-core](https:/
   - **RAM - threads:** _7.45G - 11threads_  `htop`
   - **Specs:** 172G avail `df -h`
 
+  ---
   
   2.2 Conda Env Set-up:
 
@@ -65,6 +71,7 @@ conda install bioconda::hisat2
 conda install bioconda::subread
 ```
 
+---
      
   2.3 Conda Env: once installed activate the env `conda activate rnaseq_env`
 
@@ -72,6 +79,7 @@ conda install bioconda::subread
 conda env create -f rnaseq_env.yml
 ```
 
+---
 
   2.4 Tools versions: use tool_name `--version` or  `-v` to the version `--help` or `-h` for user guide of the tool.
      
@@ -85,31 +93,109 @@ conda env create -f rnaseq_env.yml
 |6. |samtools|samtools 1.19.2|
 |7. |Subread|featureCounts v2.0.1|
 
-
+---
   </details>
 
 
 <details>
-  <summary><b>3 Pipeline </b></summary>
-  3.1. Run cmds: give flg links
-  3.2. R script
+  <summary><b>3 Pipeline Scripts & Automation </b></summary>
+  
+  3.1 Run commands: give flg links
+  - build genome
+  -
+  -
+  -
+---
+  
+  3.2 Scripts:
+  - QC Script:
+  - Alignment Script:
+
+---
+  
+  3.3 R script
+
+---
+
+  3.3 Automation:
+  
+- bash: things to add checkers if file present or not if present skip and start nex step
+- lines to change eg in counts.sh change script/qc.sh and hisat2.sh path before running and nakesure your genome is built with the name genome if not change it xyz name you have ion line no.
+```
+#run "bash path_to_script_folder/count.sh path_to_rawfastq_folder/ path_to_genome_folder/ path_to_gtf-gff_file/.gtf
+# main output of this script is featurecounts.tsv
+bash scripts/count.sh ../biostateai/raw_fastq ../mgiGenome ../mgiGenome/gencode.vM35.basic.annotation.gtf 
+```
+- Folder Structure:
+
+  biostateai/
+├── scripts
+│   ├── count.sh
+│   ├── hisat2.sh
+│   └── qc.sh
+└── raw_fastq
+    ├── bam
+    │   ├── all_bam.txt
+    │   ├── all_bam.txt.summary
+    |   ├── featurecounts.tsv
+    │   ├── Liver_ZT0_1.bam
+    │   └── Liver_ZT12_1.bam
+    ├── fastp
+    │   ├── Liver_ZT0_1_fastp_error.log
+    │   ├── Liver_ZT0_1_fastp.html
+    │   ├── Liver_ZT0_1_fastp.json
+    │   ├── Liver_ZT0_1_R1.fastq.gz
+    │   ├── Liver_ZT0_1_R2.fastq.gz
+    │   ├── Liver_ZT12_1_fastp_error.log
+    │   ├── Liver_ZT12_1_fastp.html
+    │   ├── Liver_ZT12_1_fastp.json
+    │   ├── Liver_ZT12_1_R1.fastq.gz
+    │   └── Liver_ZT12_1_R2.fastq.gz
+    ├── Liver_ZT0_1_R1.fastq.gz
+    ├── Liver_ZT0_1_R2.fastq.gz
+    ├── Liver_ZT12_1_R1.fastq.gz
+    ├── Liver_ZT12_1_R2.fastq.gz
+    └── qcreports
+        ├── Liver_ZT0_1_R1_fastqc.html
+        ├── Liver_ZT0_1_R1_fastqc.zip
+        ├── Liver_ZT0_1_R2_fastqc.html
+        ├── Liver_ZT0_1_R2_fastqc.zip
+        ├── Liver_ZT12_1_R1_fastqc.html
+        ├── Liver_ZT12_1_R1_fastqc.zip
+        ├── Liver_ZT12_1_R2_fastqc.html
+        ├── Liver_ZT12_1_R2_fastqc.zip
+        ├── multiqc_data
+        │   ├── multiqc_citations.txt
+        │   ├── multiqc_data.json
+        │   ├── multiqc_fastqc.txt
+        │   ├── multiqc_general_stats.txt
+        │   ├── multiqc.log
+        │   ├── multiqc_software_versions.txt
+        │   └── multiqc_sources.txt
+        └── multiqc_report.html
+
+
 </details>
 
 <details>
   <summary><i>Tasks</i></summary>
-> 
+> Given: 
   
   <details>
     <summary><i>A. Task 1</i></summary>
-
-  
+> To run the pipeliine Note:
+--- 
   </details>
 
 
   <details>
     <summary><i>B. Task 2</i></summary>
 
-  
+---
   </details>
 
 </details>
+
+
+
+***
