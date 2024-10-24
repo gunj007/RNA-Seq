@@ -73,7 +73,7 @@ conda install bioconda::subread
 
 ---
      
-####  2.3 Installation using .yml
+####  2.3 Installation using .yml: [rnaseq_env.yml](https://github.com/gunj007/RNA-Seq/tree/main/env)
 
 ```batchfile
 conda env create -f rnaseq_env.yml
@@ -131,8 +131,8 @@ multiqc -o output_dir *zip
 
 
 ```batchfile
-# > /dev/null as no --quite option & 2>&1 as ran in to a ERR
- fastp -i "$r1" -I "$r2" -o "$out_r1" -O "$out_r2" \
+# "> /dev/null" as no --quiet option & 2>&1 as ran in to a ERR
+fastp -i "$r1" -I "$r2" -o "$out_r1" -O "$out_r2" \
   -h "$html_report" -j "$json_report" > "$log_file" 2>&1 
 ```
 
@@ -145,25 +145,27 @@ samtools view -bS .sam > .bam
   - Hisat2:
     - `--summary-file` <path> print alignment summary to this file.
     - `--time`
-
+#### Genome Build : [Hisat2 Genome index](https://daehwankimlab.github.io/hisat2/howto/)
 ```batchfile
 # Download Genome wget "link"
 gunzip mgiGenome/GRCm39.primary_assembly.genome.fa.gz 
 # BUID Genome this will create genome1.ht2 multiple files in genome directory
 hisat2-build mgiGenome/GRCm39.primary_assembly.genome.fa genome
+```
 
+```batchfile
 # RUN Command
 # can use -p 10 for threads but requires more ram might crash ERR-137
 hisat2 -x mgiGenome/genome/genome -1 trimmed_R1.fastq.gz -2 trimmed_R2.fastq.gz -S trimmed.sam --quiet  --summary-file alignment_summary.txt --time
 ```
 
   - Subread(featureCounts):
-```
+```batchfile
 featureCounts -p -t gene --extraAttributes gene_name,gene_type --primary -a annotation.gtf -o counts.txt 1.bam 2.bam nth.bam
 ```
 
   - Preprocessing: 
-```
+```batchfile
 sed '1d' counts.txt > counts.tsv
 # Subset on the basis of Protein_coding / exon etc 
 ```
@@ -188,7 +190,7 @@ bash scripts/hisat2.sh ~/rawfastq ~/genome ~/annotations.gtf
 ####  3.3 Automation:
 > To perform standard gene count matrix from raw FASTQ files run the [count.sh](https://github.com/gunj007/RNA-Seq/blob/main/scripts/count.sh)] script with the following command
 
-```
+```batchfile
 #run "bash path_to_script_folder/count.sh path_to_rawfastq_folder/ path_to_genome_folder/ path_to_gtf-gff_file/.gtf
 # main output of this script is featurecounts.tsv
 bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM35.basic.annotation.gtf 
