@@ -22,8 +22,8 @@
 #### c. Genome Preparation: 
 - [X] Prepare a genome index using HISAT2 or other suitable alignment software for the provided genome reference. 
 #### d. Alignment and Mapping: 
-i. Perform read alignment using HISAT2 or other suitable alignment software. 
-ii. Provide alignment statistics and its visualization report, including the percentage of aligned reads, mapped reads, and potential issues with multi-mapping. 
+- [X] Perform read alignment using HISAT2 or other suitable alignment software. 
+- [X] Provide alignment statistics and its visualization report, including the percentage of aligned reads, mapped reads, and potential issues with multi-mapping. 
 #### e. Read Quantification: 
 i. Quantify gene expression using featureCounts or other suitable quantification software to generate a gene count expression matrix and provide associated statistical reports. 
 ii. Output the results in a tabular format with protein coding genes ID as rows and samples as columns.
