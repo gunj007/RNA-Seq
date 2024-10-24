@@ -1,0 +1,41 @@
+Read1 before filtering:
+total reads: 13787431
+total bases: 1392530531
+Q20 bases: 1381693504(99.2218%)
+Q30 bases: 1350433874(96.977%)
+
+Read2 before filtering:
+total reads: 13787431
+total bases: 1392530531
+Q20 bases: 1372240091(98.5429%)
+Q30 bases: 1324066944(95.0835%)
+
+Read1 after filtering:
+total reads: 13731249
+total bases: 1383130758
+Q20 bases: 1372667253(99.2435%)
+Q30 bases: 1341778106(97.0102%)
+
+Read2 after filtering:
+total reads: 13731249
+total bases: 1383130758
+Q20 bases: 1366281086(98.7818%)
+Q30 bases: 1319083991(95.3694%)
+
+Filtering result:
+reads passed filter: 27462498
+reads failed due to low quality: 111768
+reads failed due to too many N: 596
+reads failed due to too short: 0
+reads with adapter trimmed: 662586
+bases trimmed due to adapters: 7452254
+
+Duplication rate: 42.4161%
+
+Insert size peak (evaluated by paired-end reads): 149
+
+JSON report: ../biostateai/rawfastq/fastp/Liver_ZT12_2_fastp.json
+HTML report: ../biostateai/rawfastq/fastp/Liver_ZT12_2_fastp.html
+
+fastp -i ../biostateai/rawfastq/Liver_ZT12_2_R1.fastq.gz -I ../biostateai/rawfastq/Liver_ZT12_2_R2.fastq.gz -o ../biostateai/rawfastq/fastp/Liver_ZT12_2_R1.fastq.gz -O ../biostateai/rawfastq/fastp/Liver_ZT12_2_R2.fastq.gz -h ../biostateai/rawfastq/fastp/Liver_ZT12_2_fastp.html -j ../biostateai/rawfastq/fastp/Liver_ZT12_2_fastp.json 
+fastp v0.23.2, time used: 30 seconds
