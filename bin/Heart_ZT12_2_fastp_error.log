@@ -1,3 +1,11 @@
+Detecting adapter sequence for read1...
+>Illumina TruSeq Adapter Read 1
+AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+
+Detecting adapter sequence for read2...
+>Illumina TruSeq Adapter Read 2
+AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
 Read1 before filtering:
 total reads: 15930786
 total bases: 2389617900
@@ -11,31 +19,31 @@ Q20 bases: 2333557836(97.654%)
 Q30 bases: 2243734072(93.8951%)
 
 Read1 after filtering:
-total reads: 15772581
-total bases: 2188140955
-Q20 bases: 2167740595(99.0677%)
-Q30 bases: 2113130563(96.572%)
+total reads: 15764694
+total bases: 2186179845
+Q20 bases: 2165944058(99.0744%)
+Q30 bases: 2111451786(96.5818%)
 
 Read2 after filtering:
-total reads: 15772581
-total bases: 2188140955
-Q20 bases: 2155504997(98.5085%)
-Q30 bases: 2079868623(95.0519%)
+total reads: 15764694
+total bases: 2186640661
+Q20 bases: 2154493555(98.5298%)
+Q30 bases: 2079035265(95.079%)
 
 Filtering result:
-reads passed filter: 31545162
-reads failed due to low quality: 312964
-reads failed due to too many N: 3446
-reads failed due to too short: 0
-reads with adapter trimmed: 12529958
-bases trimmed due to adapters: 355622956
+reads passed filter: 31529388
+reads failed due to low quality: 312482
+reads failed due to too many N: 3444
+reads failed due to too short: 16258
+reads with adapter trimmed: 12645818
+bases trimmed due to adapters: 358703027
 
 Duplication rate: 35.9634%
 
-Insert size peak (evaluated by paired-end reads): 140
+Insert size peak (evaluated by paired-end reads): 131
 
 JSON report: ../biostateai/rawfastq/fastp/Heart_ZT12_2_fastp.json
 HTML report: ../biostateai/rawfastq/fastp/Heart_ZT12_2_fastp.html
 
-fastp -i ../biostateai/rawfastq/Heart_ZT12_2_R1.fastq.gz -I ../biostateai/rawfastq/Heart_ZT12_2_R2.fastq.gz -o ../biostateai/rawfastq/fastp/Heart_ZT12_2_R1.fastq.gz -O ../biostateai/rawfastq/fastp/Heart_ZT12_2_R2.fastq.gz -h ../biostateai/rawfastq/fastp/Heart_ZT12_2_fastp.html -j ../biostateai/rawfastq/fastp/Heart_ZT12_2_fastp.json 
-fastp v0.23.2, time used: 44 seconds
+fastp -i ../biostateai/rawfastq/Heart_ZT12_2_R1.fastq.gz -I ../biostateai/rawfastq/Heart_ZT12_2_R2.fastq.gz -o ../biostateai/rawfastq/fastp/Heart_ZT12_2R1.fastq.gz -O ../biostateai/rawfastq/fastp/Heart_ZT12_2R2.fastq.gz --detect_adapter_for_pe --thread 9 -h ../biostateai/rawfastq/fastp/Heart_ZT12_2_fastp.html -j ../biostateai/rawfastq/fastp/Heart_ZT12_2_fastp.json 
+fastp v0.23.2, time used: 46 seconds

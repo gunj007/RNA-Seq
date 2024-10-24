@@ -1,3 +1,9 @@
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+Detecting adapter sequence for read2...
+No adapter detected for read2
+
 Read1 before filtering:
 total reads: 26335934
 total bases: 2659929334
@@ -32,10 +38,10 @@ bases trimmed due to adapters: 23963506
 
 Duplication rate: 40.621%
 
-Insert size peak (evaluated by paired-end reads): 131
+Insert size peak (evaluated by paired-end reads): 141
 
 JSON report: ../biostateai/rawfastq/fastp/Liver_ZT0_1_fastp.json
 HTML report: ../biostateai/rawfastq/fastp/Liver_ZT0_1_fastp.html
 
-fastp -i ../biostateai/rawfastq/Liver_ZT0_1_R1.fastq.gz -I ../biostateai/rawfastq/Liver_ZT0_1_R2.fastq.gz -o ../biostateai/rawfastq/fastp/Liver_ZT0_1_R1.fastq.gz -O ../biostateai/rawfastq/fastp/Liver_ZT0_1_R2.fastq.gz -h ../biostateai/rawfastq/fastp/Liver_ZT0_1_fastp.html -j ../biostateai/rawfastq/fastp/Liver_ZT0_1_fastp.json 
-fastp v0.23.2, time used: 57 seconds
+fastp -i ../biostateai/rawfastq/Liver_ZT0_1_R1.fastq.gz -I ../biostateai/rawfastq/Liver_ZT0_1_R2.fastq.gz -o ../biostateai/rawfastq/fastp/Liver_ZT0_1R1.fastq.gz -O ../biostateai/rawfastq/fastp/Liver_ZT0_1R2.fastq.gz --detect_adapter_for_pe --thread 9 -h ../biostateai/rawfastq/fastp/Liver_ZT0_1_fastp.html -j ../biostateai/rawfastq/fastp/Liver_ZT0_1_fastp.json 
+fastp v0.23.2, time used: 59 seconds

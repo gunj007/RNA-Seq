@@ -1,0 +1,11 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	Heart_ZT0_1R1	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT0_1R1_fastqc.zip
+FastQC	all_sections	Heart_ZT0_1R2	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT0_1R2_fastqc.zip
+FastQC	all_sections	Heart_ZT0_2R1	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT0_2R1_fastqc.zip
+FastQC	all_sections	Heart_ZT0_2R2	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT0_2R2_fastqc.zip
+FastQC	all_sections	Heart_ZT12_1R1	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT12_1R1_fastqc.zip
+FastQC	all_sections	Heart_ZT12_1R2	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT12_1R2_fastqc.zip
+FastQC	all_sections	Heart_ZT12_2R1	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT12_2R1_fastqc.zip
+FastQC	all_sections	Heart_ZT12_2R2	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT12_2R2_fastqc.zip
+FastQC	all_sections	Liver_ZT12_1R1	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT12_1R1_fastqc.zip
+FastQC	all_sections	Liver_ZT12_1R2	/home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT12_1R2_fastqc.zip
