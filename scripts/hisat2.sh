@@ -12,10 +12,11 @@ genome_dir="$2"
 gtf_dir="$3"
 
 # Create output dir for Hisat2
-sam_dir="${input_dir}"
+sam_dir="${input_dir}/sam"
 bam_dir="${input_dir}/bam"
 
 mkdir -p "$bam_dir"
+mkdir -p "$sam_dir"
 
 # Step 1: Count .gz files in the input directory (inside fastp folder)
 fastp_dir="${input_dir}/fastp"
@@ -57,15 +58,17 @@ for r1 in "$fastp_dir"/*_R1.fastq.gz; do
   r2="${fastp_dir}/${base_name}_R2.fastq.gz"
   
   # Output SAM and BAM filenames
-  output_sam="${input_dir}/${base_name}.sam"
+  output_sam="${sam_dir}/${base_name}.sam"
   output_bam="${input_dir}/bam/${base_name}.bam"
-  
+  output_sum="${input_dir}/sam/${base_name}.txt"
+
   # Check if R2 file exists
   if [ -f "$r2" ]; then
     echo "Processing ${base_name}..."
     
-    # Run hisat2 alignment you can add -p 10 threads
-    hisat2 -x "${genome_dir}/genome/genome" -1 "$r1" -2 "$r2" -S "$output_sam"
+    # Run hisat2 alignment you can add -p 10 threads crashing ERR137OOM 
+    hisat2 -p 4 -x "${genome_dir}/genome/genome" -1 "$r1" -2 "$r2" -S "$output_sam" --summary-file $output_sum --time --quiet
+
     echo "HISAT2 alignment completed for ${base_name}: $output_sam"
     
     # Convert SAM to BAM
