@@ -101,23 +101,38 @@ conda env create -f rnaseq_env.yml
   <summary><b>3 Pipeline Scripts & Automation </b></summary>
   
 ####  3.1 Run commands:
-  - FastqQC: 
+  - FastqQC:
+    - `-a ,  --adapters`    Specifies a non-default file which contains the list of  adapter sequences which will be explicity searched against the library. The file must contain sets of named adapters in the form name[tab]sequence.  Lines prefixed with a hash will be ignored.
+    - `-q --quiet `      Suppress all progress messages on stdout and only report errors.
+      
+                    
+
 ```batchfile
-fastqc -o output_dir *.gz
+fastqc -o output_dir *.gz --threads 10 -q
 ```
 
   - MultiQC:
+    - **_ERR_**: fix try `conda update multiqc`  if error prevails config.py replace ymal.load to ymal.safe_load
+      
+            "/home/rgitbt/miniconda3/envs/multiqc/lib/python2.7/site-packages/multiqc-1.0.dev0-py2.7.egg/multiqc/utils/config.py:44:
+           YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+
+ 
+
 ```batchfile
 multiqc -o output_dir *zip
 ```
 
   - Fastp:
     -  `--adapter_sequence` the adapter for read1. For SE data, if not specified, the adapter will be auto-detected. For PE data, this is used if R1/R2 are found not overlapped. (string [=auto]
-    -  `--adapter_sequence_r2` the adapter for read2 (PE data only). This is used if R1/R2 are found not overlapped. If not specified, it will be the same as <adapter_sequence>
+    -  `--adapter_sequence_r2` the adapter for read2 (PE data only). This is used if R1/R2 are found not overlapped. If not specified, it will be the same as <adapter_sequence> eg ` --adapter_sequence=AGATCGGAAGAGC --adapter_sequence_r2=AGATCGGAAGAGC` if Multiqc report adapter is "Illumina Universal Adapter"
+    - `--detect_adapter_for_pe` by default, the auto-detection for adapter is for SE data input only, turn on this option to enable it for PE data.
+    - `--interleaved_in `  This option will result in interleaved FASTQ output for paired-end output. Disabled by default.
+
 
 ```batchfile
+# > /dev/null as no --quite option & 2>&1 as ran in to a ERR
  fastp -i "$r1" -I "$r2" -o "$out_r1" -O "$out_r2" \
-  -adapter_sequence=AGATCGGAAGAGC --adapter_sequence_r2=AGATCGGAAGAGC \
   -h "$html_report" -j "$json_report" > "$log_file" 2>&1 
 ```
 
@@ -128,6 +143,9 @@ samtools view -bS .sam > .bam
 ```
 
   - Hisat2:
+    - `--summary-file` <path> print alignment summary to this file.
+    - `--time`
+
 ```batchfile
 # Download Genome wget "link"
 gunzip mgiGenome/GRCm39.primary_assembly.genome.fa.gz 
@@ -136,7 +154,7 @@ hisat2-build mgiGenome/GRCm39.primary_assembly.genome.fa genome
 
 # RUN Command
 # can use -p 10 for threads but requires more ram might crash ERR-137
-hisat2 -x mgiGenome/genome/genome -1 trimmed_R1.fastq.gz -2 trimmed_R2.fastq.gz -S trimmed.sam
+hisat2 -x mgiGenome/genome/genome -1 trimmed_R1.fastq.gz -2 trimmed_R2.fastq.gz -S trimmed.sam --quiet  --summary-file alignment_summary.txt --time
 ```
 
   - Subread(featureCounts):
@@ -154,7 +172,7 @@ sed '1d' counts.txt > counts.tsv
   
 ####  3.2 Scripts:
   - QC Script:
->This script performs _fastqc-multiqc-fastp_ for multiple files. Just provide input folder containing '.fast.gz', it will create a folder name `qcreports/` inside it and `fastp/` for trimmed reads
+>This script performs _fastqc-multiqc-fastp-fastqc-multiqc_ for multiple files. Just provide input folder containing '.fast.gz', it will create a folder name `qcreports/` and it will create `qcreportstrim/` inside `fastp/` for trimmed reads
 
 ```batchfile
 bash scripts/qc.sh ~/rawfastq
