@@ -18,7 +18,7 @@
 - [X] [MultiQC](https://github.com/gunj007/RNA-Seq/blob/main/qcreports/multiqc_out/multiqc_report.html) Provide a summary report using MultiQC with key quality metrics such as sequence count per sample, per base sequence quality, read length distribution, sequence duplication level and any adapter contamination. 
 #### b. Adapter Trimming: 
 - [X] fastp or other suitable preprocessing and quality control software. 
-- [ ] Provide a summary report detailing the percentage of reads trimmed and any improvement in quality metrics after trimming. 
+- [x] Provide a summary report detailing the percentage of reads trimmed and any improvement in quality metrics after trimming. 
 #### c. Genome Preparation: 
 - [X] Prepare a genome index using HISAT2 or other suitable alignment software for the provided genome reference. 
 #### d. Alignment and Mapping: 
