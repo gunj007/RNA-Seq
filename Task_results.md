@@ -14,13 +14,13 @@
 >Longest Substring Calculator
     
 #### 1. a. Quality Control: 
-- [X] Perform quality control using FastQC to evaluate the quality of the RNA-seq data. 
-- [X] Provide a summary report using MultiQC with key quality metrics such as sequence count per sample, per base sequence quality, read length distribution, sequence duplication level and any adapter contamination. 
+- [X] [Fastqc](https://github.com/gunj007/RNA-Seq/tree/main/qcreports/fastqc_out) Perform quality control using FastQC 
+- [X] [MultiQC](https://github.com/gunj007/RNA-Seq/blob/main/qcreports/multiqc_out/multiqc_report.html) Provide a summary report using MultiQC with key quality metrics such as sequence count per sample, per base sequence quality, read length distribution, sequence duplication level and any adapter contamination. 
 #### b. Adapter Trimming: 
-i. If the data shows signs of adapter contamination or poor quality, perform trimming using Cutadapt, fastp or other suitable preprocessing and quality control software. 
-ii. Provide a summary report detailing the percentage of reads trimmed and any improvement in quality metrics after trimming. 
+- [X] fastp or other suitable preprocessing and quality control software. 
+- [ ] Provide a summary report detailing the percentage of reads trimmed and any improvement in quality metrics after trimming. 
 #### c. Genome Preparation: 
-i. Prepare a genome index using HISAT2 or other suitable alignment software for the provided genome reference. 
+- [X] Prepare a genome index using HISAT2 or other suitable alignment software for the provided genome reference. 
 #### d. Alignment and Mapping: 
 i. Perform read alignment using HISAT2 or other suitable alignment software. 
 ii. Provide alignment statistics and its visualization report, including the percentage of aligned reads, mapped reads, and potential issues with multi-mapping. 
