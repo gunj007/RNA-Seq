@@ -37,35 +37,35 @@ There are many readyly available RNA-seq pipeline workflow eg. [nf-core](https:/
 </details>
   
 <details>
-  <summary><b>2. Installation Guide</b></summary>
+  <summary><b>2. Installation Guide </b></summary>
 
   
-  2.1 System Info:
+ #### 2.1 System Info:
   - **System:** _Ubuntu 24.04 LTS_ `lsb_release -a`
   - **RAM - threads:** _7.45G - 11threads_  `htop`
   - **Specs:** 172G avail `df -h`
 
   ---
   
-  2.2 Conda Env Set-up:
+####  2.2 Conda Env Dependencies:
 
 - Install [Miniconda](https://docs.anaconda.com/miniconda/)
 - Add [Bioconda channels](https://bioconda.github.io/)
-- Create env:
-```
+- Create env and INSTALLATION of TOOLS:
+```batchfile
 conda create -n ranaseq
 conda activate rnaseq
 ```
-- Installation:
-  - QC Tools:
-  - Alignment Tools:
-```
+
+```batchfile
+# QC TOOLS
 conda install bioconda::multiqc
 conda install bioconda:fastqc
 conda install -c bioconda fastp
 ```
  
-```
+```batchfile
+# ALIGNMENT TOOLS
 conda install bioconda::samtools
 conda install bioconda::hisat2
 conda install bioconda::subread
@@ -73,15 +73,15 @@ conda install bioconda::subread
 
 ---
      
-  2.3 Conda Env: once installed activate the env `conda activate rnaseq_env`
+####  2.3 Installation using .yml
 
-```
+```batchfile
 conda env create -f rnaseq_env.yml
 ```
 
 ---
 
-  2.4 Tools versions: use tool_name `--version` or  `-v` to the version `--help` or `-h` for user guide of the tool.
+####  2.4 Tools versions: use tool_name `--version` or  `-v` to the version `--help` or `-h` for user guide of the tool.
      
 |Sr.no|Tools|Version|
 |:----|:----|:-----:|
@@ -100,102 +100,139 @@ conda env create -f rnaseq_env.yml
 <details>
   <summary><b>3 Pipeline Scripts & Automation </b></summary>
   
-  3.1 Run commands: give flg links
-  - build genome
-  -
-  -
-  -
+####  3.1 Run commands:
+  - FastqQC: 
+```batchfile
+fastqc -o output_dir *.gz
+```
+
+  - MultiQC:
+```batchfile
+multiqc -o output_dir *zip
+```
+
+  - Fastp:
+```batchfile
+fastp -i _R1.fastq.gz -I _R2.fastq.gz -o _R1.fastq.gz -O _R2.fastq.gz --threads 10
+```
+
+  - Samtools:
+```batchfile
+samtools view -bS .sam > .bam
+# you can also sort by coord incase of other aligners
+```
+
+  - Hisat2:
+```batchfile
+# Download Genome wget "link"
+gunzip mgiGenome/GRCm39.primary_assembly.genome.fa.gz 
+# BUID Genome this will create genome1.ht2 multiple files in genome directory
+hisat2-build mgiGenome/GRCm39.primary_assembly.genome.fa genome
+
+# RUN Command
+# can use -p 10 for threads but requires more ram might crash ERR-137
+hisat2 -x mgiGenome/genome/genome -1 trimmed_R1.fastq.gz -2 trimmed_R2.fastq.gz -S trimmed.sam
+```
+
+  - Subread(featureCounts):
+```
+featureCounts -p -t gene --extraAttributes gene_name,gene_type --primary -a annotation.gtf -o counts.txt 1.bam 2.bam nth.bam
+```
+
+  - Preprocessing: 
+```
+sed '1d' counts.txt > counts.tsv
+# Subset on the basis of Protein_coding / exon etc 
+```
+
 ---
   
-  3.2 Scripts:
+####  3.2 Scripts:
   - QC Script:
-  - Alignment Script:
+>This script performs _fastqc-multiqc-fastp_ for multiple files. Just provide input folder containing '.fast.gz', it will create a folder name `qcreports/` inside it and `fastp/` for trimmed reads
 
+```batchfile
+bash scripts/qc.sh ~/rawfastq
+```
+
+  - Alignment Script: 
+>This scripts performs _hisat2-sam_to_bam_ provide trimmed fastq's folder ie. `fastp/` with the genome file and annotation file, it creates bam folder inside the input directory 
+```batchfile
+bash scripts/hisat2.sh ~/rawfastq ~/genome ~/annotations.gtf
+```
 ---
-  
-  3.3 R script
 
----
+####  3.3 Automation:
+> To perform standard gene count matrix from raw FASTQ files run the following command
 
-  3.3 Automation:
-  
-- bash: things to add checkers if file present or not if present skip and start nex step
-- lines to change eg in counts.sh change script/qc.sh and hisat2.sh path before running and nakesure your genome is built with the name genome if not change it xyz name you have ion line no.
 ```
 #run "bash path_to_script_folder/count.sh path_to_rawfastq_folder/ path_to_genome_folder/ path_to_gtf-gff_file/.gtf
 # main output of this script is featurecounts.tsv
-bash scripts/count.sh ../biostateai/raw_fastq ../mgiGenome ../mgiGenome/gencode.vM35.basic.annotation.gtf 
+bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM35.basic.annotation.gtf 
 ```
-- Folder Structure:
-
-  biostateai/
-├── scripts
+- Example Folder Structure:
+```batchfile
+../biostateai/
+├── scripts <- Genome annotation file (.GTF/.GFF)
 │   ├── count.sh
 │   ├── hisat2.sh
 │   └── qc.sh
-└── raw_fastq
-    ├── bam
-    │   ├── all_bam.txt
-    │   ├── all_bam.txt.summary
-    |   ├── featurecounts.tsv
-    │   ├── Liver_ZT0_1.bam
-    │   └── Liver_ZT12_1.bam
-    ├── fastp
-    │   ├── Liver_ZT0_1_fastp_error.log
-    │   ├── Liver_ZT0_1_fastp.html
-    │   ├── Liver_ZT0_1_fastp.json
-    │   ├── Liver_ZT0_1_R1.fastq.gz
-    │   ├── Liver_ZT0_1_R2.fastq.gz
-    │   ├── Liver_ZT12_1_fastp_error.log
-    │   ├── Liver_ZT12_1_fastp.html
-    │   ├── Liver_ZT12_1_fastp.json
-    │   ├── Liver_ZT12_1_R1.fastq.gz
-    │   └── Liver_ZT12_1_R2.fastq.gz
-    ├── Liver_ZT0_1_R1.fastq.gz
-    ├── Liver_ZT0_1_R2.fastq.gz
-    ├── Liver_ZT12_1_R1.fastq.gz
-    ├── Liver_ZT12_1_R2.fastq.gz
-    └── qcreports
-        ├── Liver_ZT0_1_R1_fastqc.html
-        ├── Liver_ZT0_1_R1_fastqc.zip
-        ├── Liver_ZT0_1_R2_fastqc.html
-        ├── Liver_ZT0_1_R2_fastqc.zip
-        ├── Liver_ZT12_1_R1_fastqc.html
-        ├── Liver_ZT12_1_R1_fastqc.zip
-        ├── Liver_ZT12_1_R2_fastqc.html
-        ├── Liver_ZT12_1_R2_fastqc.zip
-        ├── multiqc_data
-        │   ├── multiqc_citations.txt
-        │   ├── multiqc_data.json
-        │   ├── multiqc_fastqc.txt
-        │   ├── multiqc_general_stats.txt
-        │   ├── multiqc.log
-        │   ├── multiqc_software_versions.txt
-        │   └── multiqc_sources.txt
-        └── multiqc_report.html
+├── raw_fastq
+|   ├── bam
+|   │   ├── all_bam.txt
+|   │   ├── all_bam.txt.summary
+|   |   ├── allfeaturecounts.tsv
+|   │   ├── Liver_ZT0_1.bam
+|   │   └── Liver_ZT12_1.bam
+|   ├── fastp
+|   │   ├── Liver_ZT0_1_fastp_error.log
+|   │   ├── Liver_ZT0_1_fastp.html
+|   │   ├── Liver_ZT0_1_fastp.json
+|   │   ├── Liver_ZT0_1_R1.fastq.gz
+|   │   ├── Liver_ZT0_1_R2.fastq.gz
+|   │   ├── Liver_ZT12_1_fastp_error.log
+|   │   ├── Liver_ZT12_1_fastp.html
+|   │   ├── Liver_ZT12_1_fastp.json
+|   │   ├── Liver_ZT12_1_R1.fastq.gz
+|   │   └── Liver_ZT12_1_R2.fastq.gz
+|   ├── Liver_ZT0_1_R1.fastq.gz
+|   ├── Liver_ZT0_1_R2.fastq.gz
+|   ├── Liver_ZT12_1_R1.fastq.gz
+|   ├── Liver_ZT12_1_R2.fastq.gz
+|   └── qcreports
+|       ├── Liver_ZT0_1_R1_fastqc.html
+|       ├── Liver_ZT0_1_R1_fastqc.zip
+|       ├── Liver_ZT0_1_R2_fastqc.html
+|       ├── Liver_ZT0_1_R2_fastqc.zip
+|       ├── Liver_ZT12_1_R1_fastqc.html
+|       ├── Liver_ZT12_1_R1_fastqc.zip
+|       ├── Liver_ZT12_1_R2_fastqc.html
+|       ├── Liver_ZT12_1_R2_fastqc.zip
+|       ├── multiqc_data
+|       │   ├── multiqc_citations.txt
+|       │   ├── multiqc_data.json
+|       │   ├── multiqc_fastqc.txt
+|       │   ├── multiqc_general_stats.txt
+|       │   ├── multiqc.log
+|       │   ├── multiqc_software_versions.txt
+|       │   └── multiqc_sources.txt
+|       └── multiqc_report.html
+└──mgiGenome/
+    ├── gencode.vM35.basic.annotation.gtf
+    ├── genome
+    │   ├── genome.1.ht2
+    │   ├── genome.2.ht2
+    │   ├── genome.3.ht2
+    │   ├── genome.4.ht2
+    │   ├── genome.5.ht2
+    │   ├── genome.6.ht2
+    │   ├── genome.7.ht2
+    │   └── genome.8.ht2
+    └── GRCm39.primary_assembly.genome.fa
 
+```
 
 </details>
 
-<details>
-  <summary><i>Tasks</i></summary>
-> Given: 
-  
-  <details>
-    <summary><i>A. Task 1</i></summary>
-> To run the pipeliine Note:
---- 
-  </details>
-
-
-  <details>
-    <summary><i>B. Task 2</i></summary>
-
+### [Task_results](https://github.com/gunj007/RNA-Seq/blob/main/Task_results)
 ---
-  </details>
-
-</details>
-
-
-
-***
