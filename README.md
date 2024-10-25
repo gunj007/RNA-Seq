@@ -206,63 +206,10 @@ bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM3
 ```
 - Example Folder Structure:
 ```batchfile
-../biostateai/
-├── scripts <- Genome annotation file (.GTF/.GFF)
-│   ├── count.sh
-│   ├── hisat2.sh
-│   └── qc.sh
-├── raw_fastq
-|   ├── bam
-|   │   ├── all_bam.txt
-|   │   ├── all_bam.txt.summary
-|   |   ├── allfeaturecounts.tsv
-|   │   ├── Liver_ZT0_1.bam
-|   │   └── Liver_ZT12_1.bam
-|   ├── fastp
-|   │   ├── Liver_ZT0_1_fastp_error.log
-|   │   ├── Liver_ZT0_1_fastp.html
-|   │   ├── Liver_ZT0_1_fastp.json
-|   │   ├── Liver_ZT0_1_R1.fastq.gz
-|   │   ├── Liver_ZT0_1_R2.fastq.gz
-|   │   ├── Liver_ZT12_1_fastp_error.log
-|   │   ├── Liver_ZT12_1_fastp.html
-|   │   ├── Liver_ZT12_1_fastp.json
-|   │   ├── Liver_ZT12_1_R1.fastq.gz
-|   │   └── Liver_ZT12_1_R2.fastq.gz
-|   ├── Liver_ZT0_1_R1.fastq.gz
-|   ├── Liver_ZT0_1_R2.fastq.gz
-|   ├── Liver_ZT12_1_R1.fastq.gz
-|   ├── Liver_ZT12_1_R2.fastq.gz
-|   └── qcreports
-|       ├── Liver_ZT0_1_R1_fastqc.html
-|       ├── Liver_ZT0_1_R1_fastqc.zip
-|       ├── Liver_ZT0_1_R2_fastqc.html
-|       ├── Liver_ZT0_1_R2_fastqc.zip
-|       ├── Liver_ZT12_1_R1_fastqc.html
-|       ├── Liver_ZT12_1_R1_fastqc.zip
-|       ├── Liver_ZT12_1_R2_fastqc.html
-|       ├── Liver_ZT12_1_R2_fastqc.zip
-|       ├── multiqc_data
-|       │   ├── multiqc_citations.txt
-|       │   ├── multiqc_data.json
-|       │   ├── multiqc_fastqc.txt
-|       │   ├── multiqc_general_stats.txt
-|       │   ├── multiqc.log
-|       │   ├── multiqc_software_versions.txt
-|       │   └── multiqc_sources.txt
-|       └── multiqc_report.html
-└──mgiGenome/
-    ├── gencode.vM35.basic.annotation.gtf
-    ├── genome
-    │   ├── genome.1.ht2
-    │   ├── genome.2.ht2
-    │   ├── genome.3.ht2
-    │   ├── genome.4.ht2
-    │   ├── genome.5.ht2
-    │   ├── genome.6.ht2
-    │   ├── genome.7.ht2
-    │   └── genome.8.ht2
-    └── GRCm39.primary_assembly.genome.fa
+
+
+
+
 
 ```
 
@@ -270,6 +217,97 @@ bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM3
 
 <details>
   <summary><b>4. RNAseq- Analysis RScripts </b></summary>
+
+#### Tabular format genes & count matrix, reproducibility of the sample and then visualize the data using scatter plots and heatmaps
+
+- Preprocessing the pipeline's counts.tsv
+```Rscript
+# Install the latest version of DEseq2
+# the counts file from featurecouts cam be manipulated here to generate gene count matrix
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#   install.packages("BiocManager")
+#BiocManager::install("DESeq2")
+
+library(DESeq2)
+library(dplyr)
+# Load the counts filtered .txt file
+data1 <- read.table("bam/allfeaturecounts.tsv",row.names = 1, header = TRUE, sep = "\t")
+dim(data1)
+[1] 57132    15
+
+colnames(data1)
+[1] "Chr"                                        
+ [2] "Start"                                      
+ [3] "End"                                        
+ [4] "Strand"                                     
+ [5] "Length"                                     
+ [6] "gene_name"                                  
+ [7] "gene_type"                                  
+ [8] "...biostateai.rawfastq.bam.Heart_ZT0_1.bam" 
+ [9] "...biostateai.rawfastq.bam.Heart_ZT0_2.bam" 
+[10] "...biostateai.rawfastq.bam.Heart_ZT12_1.bam"
+[11] "...biostateai.rawfastq.bam.Heart_ZT12_2.bam"
+[12] "...biostateai.rawfastq.bam.Liver_ZT0_1.bam" 
+[13] "...biostateai.rawfastq.bam.Liver_ZT0_2.bam" 
+[14] "...biostateai.rawfastq.bam.Liver_ZT12_1.bam"
+[15] "...biostateai.rawfastq.bam.Liver_ZT12_2.bam"
+
+data <- data[, !(names(data) %in% c("Chr","Start" ,"End", "Strand","Length","gene_name", "gene_type"))]
+
+#change colnames
+
+# Subset counts file to protein_coding as gene_type if not done before then drop col gene_name/type
+data <- data1 %>% filter(gene_type == "protein_coding")
+dim(data)
+[1] 21652    10
+
+data <- data[which(rowSums(data[, -1]) > 4), ]
+dim(data)
+[1] 15496     8
+#change colnames
+colnames(data)<- c("Heart_ZT0_1","Heart_ZT0_2","Heart_ZT12_1","Heart_ZT12_2","Liver_ZT0_1","Liver_ZT0_2","Liver_ZT12_1","Liver_ZT12_2")
+
+# Fix ensemble ids with version 1st by removing dot suffix 2nd by biomart and AnnotatinHub
+rownames(data) <- gsub("\\..*", "", rownames(data))
+write.csv(data, file = "rna_analysis/proteincoding_geneids.csv")
+
+write.csv(data, file = "protein_coding_geneids.csv")
+```
+- geneids  to gene name
+```
+library(org.Mm.eg.db) 
+# if required gene names can be achieved 
+genenames <- data[,1,drop= FALSE]
+genenames$ensemblids <- rownames(data)
+genenames <- genenames[, c("ensemblids", names(genenames)[1])]
+row.names(genenames)<- NULL
+head(genenames)
+```
+- DESeq Object
+```
+# RNA-seq data from two house mouse (Mus musculus) tissues (Heart, Liver) across 
+# tow sampling times (ZT0, ZT12), with 1 biological replicates for each tissue and sampling time,
+# resulting in a total of 16 paired-end FASTQ files.
+
+org <- factor(c("m1","m1","m1","m1","m2","m2","m2","m2"))
+typetissue <- factor(c("heart","heart","liver","liver","heart","heart","liver","liver"))
+time <- factor(c("ZT0","ZT12","ZT0","ZT12","ZT0","ZT12","ZT0","ZT12"))
+coldata <- data.frame(row.names = colnames(data), org, typetissue,time)
+coldata
+
+             org typetissue time
+Heart_ZT0_1   m1      heart  ZT0
+Heart_ZT0_2   m1      heart ZT12
+Heart_ZT12_1  m1      liver  ZT0
+Heart_ZT12_2  m1      liver ZT12
+Liver_ZT0_1   m2      heart  ZT0
+Liver_ZT0_2   m2      heart ZT12
+Liver_ZT12_1  m2      liver  ZT0
+Liver_ZT12_2  m2      liver ZT12
+> 
+```
+
+```
 
 #### 
 
