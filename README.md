@@ -92,12 +92,12 @@ conda env create -f rnaseq_env.yml
 |5. |HISAT2|version 2.2.1|
 |6. |samtools|samtools 1.19.2|
 |7. |Subread|featureCounts v2.0.1|
-
+|8. |RStudio|2022.12.0|
 ---
   </details>
 
 
-<details>
+<details open>
   <summary><b>3 Pipeline Scripts & Automation </b></summary>
   
 ####  3.1 Run commands:
@@ -209,12 +209,12 @@ bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM3
 
 </details>
 
-<details>
+<details open>
   <summary><b>4. RNAseq- Analysis RScripts </b></summary>
 
 #### Tabular format genes & count matrix, reproducibility of the sample and then visualize the data using scatter plots and heatmaps
 
-- Preprocessing the pipeline's counts.tsv
+#### 4.1 Preprocessing the pipeline's counts.tsv
 ```Rscript
 # Install the latest version of DEseq2
 # the counts file from featurecouts cam be manipulated here to generate gene count matrix
@@ -267,7 +267,8 @@ write.csv(data, file = "rna_analysis/proteincoding_geneids.csv")
 
 write.csv(data, file = "protein_coding_geneids.csv")
 ```
-- geneids  to gene name
+
+#### 4.2 geneids  to gene name
 ```
 library(org.Mm.eg.db) 
 # if required gene names can be achieved 
@@ -309,36 +310,127 @@ mean-dispersion relationship
 final dispersion estimates
 fitting model and testing
 
-```
-
+``` 
+#### Correlation
 ```Rscript
 # Visualize the correlation matrix as a heatmap
 library(pheatmap)
 pheatmap(cor_matrix, clustering_distance_rows = "euclidean", clustering_distance_cols = "euclidean", 
          main = "Sample Correlation Heatmap")
 ```
-![image](https://github.com/user-attachments/assets/f23b0ec5-ec0f-4d70-8e5a-3a25c597c43b)
+#### Top Variable genes
+```Rscript
+# Extract the top variable genes
+library(matrixStats) 
+top_genes <- head(order(rowVars(assay(ds), useNames = TRUE ), decreasing = TRUE), 20)
+heatmap_data <- assay(ds)[top_genes, ]
+#replace gene id to gene name
+heat <- as.data.frame(heatmap_data)
+head(heat)
+heat$ensemblids <- rownames(heat)
+heat <-heat[,9]
+heat
 
-- PCA
+library(org.Mm.eg.db) 
+gene_names <- mapIds(org.Mm.eg.db,
+                     keys = heat,  # Use the cleaned column
+                     column = "SYMBOL",    # Get gene symbols
+                     keytype = "ENSEMBL",  # Key type is Ensembl
+                     multiVals = "first")
+
+head(gene_names)
+heat <- as.data.frame(heat)
+type(gene_names)
+
+gene_names_only <- unname(gene_names)
+
+# Now add these gene names to your dataframe
+heat$GeneName <- gene_names_only
+rownames(heatmap_data) <- heat$GeneName
+# Create a heatmap
+pheatmap(heatmap_data, scale = "row", clustering_distance_rows = "euclidean",
+         clustering_distance_cols = "euclidean", show_rownames = TRUE,
+         main = "Top Variable Genes Heatmap")
+head(heatmap_data)
+```
+
+
+#### PCA
+```Rscript
+pcaData <- plotPCA(vs,intgroup = c("typetissue","time"), returnData=TRUE)
+
+percentVar <- round(100 * attr(pcaData, "percentVar"))
+ggplot(pcaData, aes(PC1, PC2, color=time, shape=typetissue)) +
+  geom_point(size=2) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed()
+```
+
+#### Differential Expression Analysis:
+
 ```Rscript
 
 ```
+#### Volcano plot & Dot
 
-- Differential Expression Analysis:
+```Rscript
+library(EnhancedVolcano)
 
+# Volcano plot for tiss--res/deg
+EnhancedVolcano(degtiss,
+                lab = rownames(degtiss),
+                x = 'log2FoldChange',
+                y = 'padj',
+                title = 'Tissue-specific DEGs (Liver vs Heart)',
+                pCutoff = 0.05,
+                FCcutoff = 1.5,  # Set a fold change cutoff if needed
+                pointSize = 2.0,
+                labSize = 3.0)
+
+# Create gene_type column
+#degtiss$gene_type <- ifelse(degtiss$log2FoldChange > 0 & degtiss$padj < 0.05, "Upregulated",
+#                            ifelse(degtiss$log2FoldChange < 0 & degtiss$padj < 0.05, "Downregulated", "Not DE"))
+
+# res/degtime
+EnhancedVolcano(degtime,
+                lab = rownames(degtime),
+                x = 'log2FoldChange',
+                y = 'padj',
+                title = 'Time-specific DEGs (ZT12 vs ZT0)',
+                pCutoff = 0.05,
+                FCcutoff = 1.5,
+                pointSize = 2.0,
+                labSize = 3.0)
+
+# res/degint
+EnhancedVolcano(resint,
+                lab = rownames(resint),
+                x = 'log2FoldChange',
+                y = 'padj',
+                title = 'Interaction-specific DEGs (Liver vs Heart at ZT12)',
+                pCutoff = 0.05,
+                FCcutoff = 1.5,
+                pointSize = 2.0,
+                labSize = 3.0)
+
+
+require(DOSE)
+# if plots are not previewing
+graphics.off()
+
+# change object gsetim
+dotplot(gsetiss, showCategory=10, split=".sign") + facet_grid(.~.sign)+
+  ggtitle("Top 10 GO Enrichment Terms (Tissue-Specific)")
+)
+
+
+```
+#### GO
 ```Rscript
 
 ```
-- Volcano plot & heatmap
-
-```Rscript
-
-```
-- GO
-```Rscript
-
-```
-- KEGG
+#### KEGG
 
 ```Rscript
 
