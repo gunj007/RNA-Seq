@@ -204,14 +204,8 @@ bash scripts/hisat2.sh ~/rawfastq ~/genome ~/annotations.gtf
 # main output of this script is featurecounts.tsv
 bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM35.basic.annotation.gtf 
 ```
-- Example Folder Structure:
-```batchfile
+- Example Folder Structure: [link]()
 
-
-
-
-
-```
 
 </details>
 
@@ -284,32 +278,74 @@ row.names(genenames)<- NULL
 head(genenames)
 ```
 - DESeq Object
-```
+```Rscript
 # RNA-seq data from two house mouse (Mus musculus) tissues (Heart, Liver) across 
 # tow sampling times (ZT0, ZT12), with 1 biological replicates for each tissue and sampling time,
 # resulting in a total of 16 paired-end FASTQ files.
 
-org <- factor(c("m1","m1","m1","m1","m2","m2","m2","m2"))
-typetissue <- factor(c("heart","heart","liver","liver","heart","heart","liver","liver"))
-time <- factor(c("ZT0","ZT12","ZT0","ZT12","ZT0","ZT12","ZT0","ZT12"))
+org <- factor(c("m1","m2","m1","m2","m1","m2","m1","m2"))
+typetissue <- factor(c("heart","heart","heart","heart","liver","liver","liver","liver"))
+time <- factor(c("ZT0","ZT0","ZT12","ZT12","ZT0","ZT0","ZT12","ZT12"))
 coldata <- data.frame(row.names = colnames(data), org, typetissue,time)
 coldata
-
              org typetissue time
 Heart_ZT0_1   m1      heart  ZT0
-Heart_ZT0_2   m1      heart ZT12
-Heart_ZT12_1  m1      liver  ZT0
-Heart_ZT12_2  m1      liver ZT12
-Liver_ZT0_1   m2      heart  ZT0
-Liver_ZT0_2   m2      heart ZT12
-Liver_ZT12_1  m2      liver  ZT0
+Heart_ZT0_2   m2      heart  ZT0
+Heart_ZT12_1  m1      heart ZT12
+Heart_ZT12_2  m2      heart ZT12
+Liver_ZT0_1   m1      liver  ZT0
+Liver_ZT0_2   m2      liver  ZT0
+Liver_ZT12_1  m1      liver ZT12
 Liver_ZT12_2  m2      liver ZT12
-> 
-```
+
+
+
+> ds <- DESeqDataSetFromMatrix(countData = data, colData = coldata, design = ~typetissue + time + typetissue:time)
+> ds <- DESeq(ds)
+estimating size factors
+estimating dispersions
+gene-wise dispersion estimates
+mean-dispersion relationship
+final dispersion estimates
+fitting model and testing
 
 ```
 
-#### 
+```Rscript
+# Visualize the correlation matrix as a heatmap
+library(pheatmap)
+pheatmap(cor_matrix, clustering_distance_rows = "euclidean", clustering_distance_cols = "euclidean", 
+         main = "Sample Correlation Heatmap")
+```
+![image](https://github.com/user-attachments/assets/f23b0ec5-ec0f-4d70-8e5a-3a25c597c43b)
+
+- PCA
+```Rscript
+
+```
+
+- Differential Expression Analysis:
+
+```Rscript
+
+```
+- Volcano plot & heatmap
+
+```Rscript
+
+```
+- GO
+```Rscript
+
+```
+- KEGG
+
+```Rscript
+
+```
+
+
+
 
   </details>
 
