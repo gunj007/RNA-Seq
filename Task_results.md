@@ -22,11 +22,11 @@
 #### c. Genome Preparation: 
 - [X] Prepared a [genome index using HISAT2](https://github.com/gunj007/RNA-Seq#genome-build--hisat2-genome-index) 
 #### d. Alignment and Mapping: 
-- [ ] Performed read alignment using HISAT2
-- [ ] Provide alignment statistics and its visualization report, including the percentage of aligned reads, mapped reads, and potential issues with multi-mapping. 
+- [x] Performed read alignment using HISAT2
+- [x] Provide alignment statistics and its visualization report 
 #### e. Read Quantification: 
-- [ ] Quantify gene expression using featureCounts or other suitable quantification software to generate a gene count expression matrix and provide associated statistical reports. 
-- [ ] Output the results in a tabular format with protein coding genes ID as rows and samples as columns.
+- [x] Quantify gene expression using featureCounts
+- [x] Output the results in a tabular format with protein coding genes ID as rows and samples as columns.
 
 
 
@@ -40,15 +40,15 @@
     
 #### a. Data reproducibility and pattern of variation: 
     
-- [ ] Determine the reproducibility of the sample and then visualize the data using scatter plots and heatmaps. 
-- [ ] Perform Principal Component Analysis (PCA) to investigate the overall pattern of variation across all samples in the dataset. 
+- [x] Determine the reproducibility of the sample and plot heatmaps. 
+- [x] Perform Principal Component Analysis (PCA) to investigate the overall pattern of variation across all samples in the dataset. 
 #### b. Differential Expression Analysis: 
-- [ ]  Use a factorial design in DESeq2 to model main effects (tissue and sampling time) and their interaction (formula: ~ tissue + time + tissue:time). Clearly report the statistical analysis of differentially expressed genes (DEGs) with 1) tissue-specific, 2) time-specific, and 3) interaction effects. 
-- [ ]  Perform paired contrast analysis and detect DEGs between tissues at each sampling time. Visualize the results using volcano plots. 
-- [ ]  Perform the clustering analysis for all DEGs and visualize the results using comprehensive heatmaps. 
-- [ ]  For each statistical analysis group, display the expression patterns of the top DEGs and explain their biological significance. 
+- [x]  Use a factorial design in DESeq2 to model main effects (tissue and sampling time) and their interaction (formula: ~ tissue + time + tissue:time). Clearly report the statistical analysis of differentially expressed genes (DEGs) with 1) tissue-specific, 2) time-specific, and 3) interaction effects. 
+- [x]  Perform paired contrast analysis and detect DEGs between tissues at each sampling time. Visualize the results using volcano plots. 
+- [x]  Perform the clustering analysis for all DEGs and visualize the results using comprehensive heatmaps. 
+- [x]  For each statistical analysis group, display the expression patterns of the top DEGs and explain their biological significance. 
 #### c. Functional Enrichment Analysis: 
-- [ ]  For each statistical analysis group, perform GO/KEGG pathway enrichment analysis. Include bubble plots or bar plots for the top enriched pathways and provide tables summarizing key terms/pathways.
+- [x]  For each statistical analysis group, perform GO/KEGG pathway enrichment analysis. Include bubble plots or bar plots for the top enriched pathways and provide tables summarizing key terms/pathways.
 
 ---
   </details>
