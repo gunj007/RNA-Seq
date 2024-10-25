@@ -22,20 +22,13 @@
 #### c. Genome Preparation: 
 - [X] Prepared a [genome index using HISAT2](https://github.com/gunj007/RNA-Seq#genome-build--hisat2-genome-index) 
 #### d. Alignment and Mapping: 
-- [X] Performed read alignment using HISAT2
-- [X] Provide alignment statistics and its visualization report, including the percentage of aligned reads, mapped reads, and potential issues with multi-mapping. 
+- [ ] Performed read alignment using HISAT2
+- [ ] Provide alignment statistics and its visualization report, including the percentage of aligned reads, mapped reads, and potential issues with multi-mapping. 
 #### e. Read Quantification: 
-i. Quantify gene expression using featureCounts or other suitable quantification software to generate a gene count expression matrix and provide associated statistical reports. 
-ii. Output the results in a tabular format with protein coding genes ID as rows and samples as columns.
+- [ ] Quantify gene expression using featureCounts or other suitable quantification software to generate a gene count expression matrix and provide associated statistical reports. 
+- [ ] Output the results in a tabular format with protein coding genes ID as rows and samples as columns.
 
 
-
-
-
->**_NOTE:_**  
-> 1. To run the pipeliine on your system makesure you all the tools installed or refer 2.3 and download the scripts/
-> 2. In `counts.sh` change to `your_path_script/qc.sh` and for `hisat2.sh` before running
-> 3. If genome is not built with the name genome then change it `your_genome_name` on line no. 
 
 --- 
   </details>
@@ -43,6 +36,19 @@ ii. Output the results in a tabular format with protein coding genes ID as rows 
 
   <details>
     <summary><i>B. Task 2</i></summary>
+>Perform the differential expression and functional enrichment analysis using the gene count matrix created in bioinformatics analysis. 
+    
+#### a. Data reproducibility and pattern of variation: 
+    
+- [ ] Determine the reproducibility of the sample and then visualize the data using scatter plots and heatmaps. 
+- [ ] Perform Principal Component Analysis (PCA) to investigate the overall pattern of variation across all samples in the dataset. 
+#### b. Differential Expression Analysis: 
+- [ ]  Use a factorial design in DESeq2 to model main effects (tissue and sampling time) and their interaction (formula: ~ tissue + time + tissue:time). Clearly report the statistical analysis of differentially expressed genes (DEGs) with 1) tissue-specific, 2) time-specific, and 3) interaction effects. 
+- [ ]  Perform paired contrast analysis and detect DEGs between tissues at each sampling time. Visualize the results using volcano plots. 
+- [ ]  Perform the clustering analysis for all DEGs and visualize the results using comprehensive heatmaps. 
+- [ ]  For each statistical analysis group, display the expression patterns of the top DEGs and explain their biological significance. 
+#### c. Functional Enrichment Analysis: 
+- [ ]  For each statistical analysis group, perform GO/KEGG pathway enrichment analysis. Include bubble plots or bar plots for the top enriched pathways and provide tables summarizing key terms/pathways.
 
 ---
   </details>
@@ -50,5 +56,9 @@ ii. Output the results in a tabular format with protein coding genes ID as rows 
 </details>
 
 
+>**_NOTE:_**  
+> 1. To run the pipeliine on your system makesure you all the tools installed or refer [2.3 yml setup](https://github.com/gunj007/RNA-Seq?tab=readme-ov-file#23-installation-using-yml-rnaseq_envyml) and download the scripts/
+> 2. In `counts.sh` change to `your_path_script/qc.sh` and for `hisat2.sh` before running
+> 3. If genome is not built with the name genome then change it `your_genome_name` on line no. 
 
 ***
