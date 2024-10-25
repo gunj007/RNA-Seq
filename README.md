@@ -145,6 +145,9 @@ samtools view -bS .sam > .bam
   - Hisat2:
     - `--summary-file` <path> print alignment summary to this file.
     - `--time`
+    - `--quiet`  print nothing to stderr except serious errors
+    - `--met-file` send metrics to file at <path> (off)
+
 #### Genome Build : [Hisat2 Genome index](https://daehwankimlab.github.io/hisat2/howto/)
 ```batchfile
 # Download Genome wget "link"
@@ -160,6 +163,12 @@ hisat2 -x mgiGenome/genome/genome -1 trimmed_R1.fastq.gz -2 trimmed_R2.fastq.gz 
 ```
 
   - Subread(featureCounts):
+    - `-T <int>`            Number of the threads. 1 by default.
+    -  
+    - ` -g <string>  `       Specify attribute type in GTF annotation. 'gene_id' by default. Meta-features used for read counting will be extracted from annotation using the provided value.
+    -  ` --extraAttributes`   Extract extra attribute types from the provided GTF annotation and include them in the counting output. These attribute types will not be used to group features. If more than one attribute type is provided they should be separated by comma.
+
+
 ```batchfile
 featureCounts -p -t gene --extraAttributes gene_name,gene_type --primary -a annotation.gtf -o counts.txt 1.bam 2.bam nth.bam
 ```
@@ -259,5 +268,12 @@ bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM3
 
 </details>
 
-### [Task_results](https://github.com/gunj007/RNA-Seq/blob/main/Task_results)
+<details>
+  <summary><b>4. RNAseq- Analysis RScripts </b></summary>
+
+#### 
+
+  </details>
+
+### [Task_results](https://github.com/gunj007/RNA-Seq/blob/main/Task_results.md)
 ---
