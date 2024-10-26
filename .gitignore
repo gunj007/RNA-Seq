@@ -1,9 +1,9 @@
-/docs/pipeline_out/fastp/*.html
+/docs/pipeline_out/fastprepo/*.html
 /docs/pipeline_out/qcreports/*.zip
 /docs/pipeline_out/qcreports/multiqc_data
 /docs/pipeline_out/qcreportstrim/*.zip
 /docs/pipeline_out/qcreportstrim/multiqc_data
 /docs/pipeline_out/allbamcounts.txt
 /docs/pipeline_out/allbamcounts.txt.summary
-/fastplog3
-/sammetrics
+/bin/fastplog3
+/bin/sammetrics6
