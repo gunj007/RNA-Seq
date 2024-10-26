@@ -1,0 +1,48 @@
+40657383 + 0 in total (QC-passed reads + QC-failed reads)
+40390344 + 0 mapped (99.34% : N/A)
+27195459 + 0 primary mapped (99.03% : N/A)
+27095686 + 0 with itself and mate mapped
+180744 + 0 with mate mapped to a different chr
+142345 + 0 with mate mapped to a different chr (mapQ>=5)
+38713276 + 0 in total (QC-passed reads + QC-failed reads)
+38413394 + 0 mapped (99.23% : N/A)
+31229506 + 0 primary mapped (99.05% : N/A)
+31077710 + 0 with itself and mate mapped
+46096 + 0 with mate mapped to a different chr
+33603 + 0 with mate mapped to a different chr (mapQ>=5)
+57933967 + 0 in total (QC-passed reads + QC-failed reads)
+57483107 + 0 mapped (99.22% : N/A)
+37014526 + 0 primary mapped (98.80% : N/A)
+36873592 + 0 with itself and mate mapped
+184488 + 0 with mate mapped to a different chr
+144197 + 0 with mate mapped to a different chr (mapQ>=5)
+78869963 + 0 in total (QC-passed reads + QC-failed reads)
+78070143 + 0 mapped (98.99% : N/A)
+51528390 + 0 primary mapped (98.47% : N/A)
+51270646 + 0 with itself and mate mapped
+355836 + 0 with mate mapped to a different chr
+274478 + 0 with mate mapped to a different chr (mapQ>=5)
+94642531 + 0 in total (QC-passed reads + QC-failed reads)
+94103848 + 0 mapped (99.43% : N/A)
+77949479 + 0 primary mapped (99.31% : N/A)
+77604000 + 0 with itself and mate mapped
+242916 + 0 with mate mapped to a different chr
+194530 + 0 with mate mapped to a different chr (mapQ>=5)
+77028305 + 0 in total (QC-passed reads + QC-failed reads)
+76569338 + 0 mapped (99.40% : N/A)
+63716677 + 0 primary mapped (99.28% : N/A)
+63460398 + 0 with itself and mate mapped
+215580 + 0 with mate mapped to a different chr
+176617 + 0 with mate mapped to a different chr (mapQ>=5)
+101214387 + 0 in total (QC-passed reads + QC-failed reads)
+100677861 + 0 mapped (99.47% : N/A)
+82357734 + 0 primary mapped (99.35% : N/A)
+82019500 + 0 with itself and mate mapped
+202148 + 0 with mate mapped to a different chr
+160187 + 0 with mate mapped to a different chr (mapQ>=5)
+114753753 + 0 in total (QC-passed reads + QC-failed reads)
+113481597 + 0 mapped (98.89% : N/A)
+76709790 + 0 primary mapped (98.37% : N/A)
+76215518 + 0 with itself and mate mapped
+858592 + 0 with mate mapped to a different chr
+676727 + 0 with mate mapped to a different chr (mapQ>=5)

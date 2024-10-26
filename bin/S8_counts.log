@@ -1,0 +1,102 @@
+
+        ==========     _____ _    _ ____  _____  ______          _____  
+        =====         / ____| |  | |  _ \|  __ \|  ____|   /\   |  __ \ 
+          =====      | (___ | |  | | |_) | |__) | |__     /  \  | |  | |
+            ====      \___ \| |  | |  _ <|  _  /|  __|   / /\ \ | |  | |
+              ====    ____) | |__| | |_) | | \ \| |____ / ____ \| |__| |
+        ==========   |_____/ \____/|____/|_|  \_\______/_/    \_\_____/
+	  v2.0.1
+
+//========================== featureCounts setting ===========================\\
+||                                                                            ||
+||             Input files : 8 BAM files                                      ||
+||                           o Heart_ZT0_1_sorted.bam                         ||
+||                           o Heart_ZT0_2_sorted.bam                         ||
+||                           o Heart_ZT12_1_sorted.bam                        ||
+||                           o Heart_ZT12_2_sorted.bam                        ||
+||                           o Liver_ZT0_1_sorted.bam                         ||
+||                           o Liver_ZT0_2_sorted.bam                         ||
+||                           o Liver_ZT12_1_sorted.bam                        ||
+||                           o Liver_ZT12_2_sorted.bam                        ||
+||                                                                            ||
+||             Output file : allbamcounts.txt                                 ||
+||                 Summary : allbamcounts.txt.summary                         ||
+||              Annotation : gencode.vM35.basic.annotation.gtf (GTF)          ||
+||      Dir for temp files : rawfastq/bam                                     ||
+||                                                                            ||
+||                 Threads : 1                                                ||
+||                   Level : meta-feature level                               ||
+||              Paired-end : yes                                              ||
+||      Multimapping reads : not counted                                      ||
+||     Multiple alignments : primary alignment only                           ||
+|| Multi-overlapping reads : not counted                                      ||
+||   Min overlapping bases : 1                                                ||
+||                                                                            ||
+||          Chimeric reads : counted                                          ||
+||        Both ends mapped : not required                                     ||
+||                                                                            ||
+\\============================================================================//
+
+//================================= Running ==================================\\
+||                                                                            ||
+|| Load annotation file gencode.vM35.basic.annotation.gtf ...                 ||
+||    Features : 57132                                                        ||
+||    Meta-features : 57132                                                   ||
+||    Chromosomes/contigs : 22                                                ||
+||                                                                            ||
+|| Process BAM file Heart_ZT0_1_sorted.bam...                                 ||
+||    Paired-end reads are included.                                          ||
+||    Total alignments : 47400187                                             ||
+||    Successfully assigned alignments : 28689069 (60.5%)                     ||
+||    Running time : 1.51 minutes                                             ||
+||                                                                            ||
+|| Process BAM file Heart_ZT0_2_sorted.bam...                                 ||
+||    Paired-end reads are included.                                          ||
+||    Total alignments : 38571980                                             ||
+||    Successfully assigned alignments : 23659591 (61.3%)                     ||
+||    Running time : 1.22 minutes                                             ||
+||                                                                            ||
+|| Process BAM file Heart_ZT12_1_sorted.bam...                                ||
+||    Paired-end reads are included.                                          ||
+||    Total alignments : 50681412                                             ||
+||    Successfully assigned alignments : 29920638 (59.0%)                     ||
+||    Running time : 1.92 minutes                                             ||
+||                                                                            ||
+|| Process BAM file Heart_ZT12_2_sorted.bam...                                ||
+||    Paired-end reads are included.                                          ||
+||    Total alignments : 19381425                                             ||
+||    Successfully assigned alignments : 11202519 (57.8%)                     ||
+||    Running time : 0.57 minutes                                             ||
+||                                                                            ||
+|| Process BAM file Liver_ZT0_1_sorted.bam...                                 ||
+||    Paired-end reads are included.                                          ||
+||    Total alignments : 39583437                                             ||
+||    Successfully assigned alignments : 18351447 (46.4%)                     ||
+||    Running time : 1.65 minutes                                             ||
+||                                                                            ||
+|| Process BAM file Liver_ZT0_2_sorted.bam...                                 ||
+||    Paired-end reads are included.                                          ||
+||    Total alignments : 57701250                                             ||
+||    Successfully assigned alignments : 27608823 (47.8%)                     ||
+||    Running time : 2.43 minutes                                             ||
+||                                                                            ||
+|| Process BAM file Liver_ZT12_1_sorted.bam...                                ||
+||    Paired-end reads are included.                                          ||
+||    Total alignments : 29041094                                             ||
+||    Successfully assigned alignments : 13123974 (45.2%)                     ||
+||    Running time : 1.21 minutes                                             ||
+||                                                                            ||
+|| Process BAM file Liver_ZT12_2_sorted.bam...                                ||
+||    Paired-end reads are included.                                          ||
+||    Total alignments : 20388586                                             ||
+||    Successfully assigned alignments : 9762756 (47.9%)                      ||
+||    Running time : 0.78 minutes                                             ||
+||                                                                            ||
+|| Write the final count table.                                               ||
+|| Write the read assignment summary.                                         ||
+||                                                                            ||
+|| Summary of counting results can be found in file "rawfastq/bam/allbamcoun  ||
+|| ts.txt.summary"                                                            ||
+||                                                                            ||
+\\============================================================================//
+

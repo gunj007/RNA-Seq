@@ -1,0 +1,70 @@
+bash scripts/hisat2.sh ../biostateai/rawfastq ../mgiGenome ../mgiGenome/gencode.vM35.basic.annotation.gtf 
+Number of .gz files in ../biostateai/rawfastq/fastp: 16
+Genome folder available: genome
+Running HISAT2 for all paired-end reads...
+Processing Heart_ZT0_1...
+Time loading forward index: 00:00:03
+Time loading reference: 00:00:00
+Multiseed full-index search: 00:47:30
+Time searching: 00:47:30
+Overall time: 00:47:33
+HISAT2 alignment completed for Heart_ZT0_1: ../biostateai/rawfastq/sam/Heart_ZT0_1.sam
+BAM file created and SAM file removed: ../biostateai/rawfastq/bam/Heart_ZT0_1.bam
+Processing Heart_ZT0_2...
+Time loading forward index: 00:00:02
+Time loading reference: 00:00:01
+Multiseed full-index search: 00:15:53
+Time searching: 00:15:54
+Overall time: 00:15:56
+HISAT2 alignment completed for Heart_ZT0_2: ../biostateai/rawfastq/sam/Heart_ZT0_2.sam
+BAM file created and SAM file removed: ../biostateai/rawfastq/bam/Heart_ZT0_2.bam
+Processing Heart_ZT12_1...
+Time loading forward index: 00:00:02
+Time loading reference: 00:00:00
+Multiseed full-index search: 00:16:34
+Time searching: 00:16:34
+Overall time: 00:16:36
+HISAT2 alignment completed for Heart_ZT12_1: ../biostateai/rawfastq/sam/Heart_ZT12_1.sam
+BAM file created and SAM file removed: ../biostateai/rawfastq/bam/Heart_ZT12_1.bam
+Processing Heart_ZT12_2...
+Time loading forward index: 00:00:02
+Time loading reference: 00:00:00
+Multiseed full-index search: 00:04:06
+Time searching: 00:04:07
+Overall time: 00:04:09
+HISAT2 alignment completed for Heart_ZT12_2: ../biostateai/rawfastq/sam/Heart_ZT12_2.sam
+BAM file created and SAM file removed: ../biostateai/rawfastq/bam/Heart_ZT12_2.bam
+Processing Liver_ZT0_1...
+Time loading forward index: 00:00:02
+Time loading reference: 00:00:01
+Multiseed full-index search: 00:18:36
+Time searching: 00:18:37
+Overall time: 00:18:39
+HISAT2 alignment completed for Liver_ZT0_1: ../biostateai/rawfastq/sam/Liver_ZT0_1.sam
+BAM file created and SAM file removed: ../biostateai/rawfastq/bam/Liver_ZT0_1.bam
+Processing Liver_ZT0_2...
+Time loading forward index: 00:00:02
+Time loading reference: 00:00:01
+Multiseed full-index search: 00:45:59
+Time searching: 00:46:01
+Overall time: 00:46:03
+HISAT2 alignment completed for Liver_ZT0_2: ../biostateai/rawfastq/sam/Liver_ZT0_2.sam
+BAM file created and SAM file removed: ../biostateai/rawfastq/bam/Liver_ZT0_2.bam
+Processing Liver_ZT12_1...
+Time loading forward index: 00:00:02
+Time loading reference: 00:00:01
+Multiseed full-index search: 00:21:29
+Time searching: 00:21:30
+Overall time: 00:21:32
+HISAT2 alignment completed for Liver_ZT12_1: ../biostateai/rawfastq/sam/Liver_ZT12_1.sam
+BAM file created and SAM file removed: ../biostateai/rawfastq/bam/Liver_ZT12_1.bam
+Processing Liver_ZT12_2...
+Time loading forward index: 00:00:02
+Time loading reference: 00:00:01
+Multiseed full-index search: 00:04:39
+Time searching: 00:04:40
+Overall time: 00:04:42
+HISAT2 alignment completed for Liver_ZT12_2: ../biostateai/rawfastq/sam/Liver_ZT12_2.sam
+BAM file created and SAM file removed: ../biostateai/rawfastq/bam/Liver_ZT12_2.bam
+All alignments completed successfully!
+

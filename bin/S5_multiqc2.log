@@ -1,0 +1,26 @@
+
+  /// MultiQC 🔍 | v1.18
+
+|           multiqc | MultiQC Version v1.25.1 now available!
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT0_1R1_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT0_1R2_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT0_2R1_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT0_2R2_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT12_1R1_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT12_1R2_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT12_2R1_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Heart_ZT12_2R2_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT0_1R1_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT0_1R2_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT0_2R1_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT0_2R2_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT12_1R1_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT12_1R2_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT12_2R1_fastqc.zip
+|           multiqc | Search path : /home/rgitbt/Desktop/RNAgunjan/biostateai/rawfastq/fastp/qcreportstrim/Liver_ZT12_2R2_fastqc.zip
+|         searching | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 16/16  
+|            fastqc | Found 16 reports
+|           multiqc | Report      : rawfastq/fastp/qcreportstrim/multiqc_report.html
+|           multiqc | Data        : rawfastq/fastp/qcreportstrim/multiqc_data
+|           multiqc | Could not include file 'assets/js/packages/jszip.min.js': [Errno 2] No such file or directory: '/tmp/tmp6cpp6uuj/assets/js/packages/jszip.min.js'
+|           multiqc | MultiQC complete
