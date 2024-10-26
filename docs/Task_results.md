@@ -8,14 +8,14 @@
 > Time taken for the pipeline to run without withouts 
 
   
-  <details>
+  <details open>
     <summary><i>A. Task 1</i></summary>
     
 >Longest Substring Calculator
     
 #### 1. a. Quality Control: 
 - [X] [Fastqc](https://github.com/gunj007/RNA-Seq/tree/main/qcreports/rawfq_qc) Performed quality control using FastQC on rawfastq.gz 16
-- [X] [MultiQC](https://github.com/gunj007/RNA-Seq/blob/main/qcreports/rawfq_qc/multiqc_report.html) Provided a summary report using MultiQC, adapter contamination seen. 
+- [X] [MultiQC](https://raw.githack.com/gunj007/RNA-Seq/blob/main/docs/pipeline_out/qcreports/multiqc_report.html) Provided a summary report using MultiQC, adapter contamination seen. 
 #### b. Adapter Trimming: 
 - [X] using fastp. 
 - [x] Provide a summary report detailing the percentage of reads trimmed. [Multiqc](https://github.com/gunj007/RNA-Seq/blob/main/qcreports/trimfq_qc/multiqc_report.html)
