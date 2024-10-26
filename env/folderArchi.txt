@@ -1,0 +1,208 @@
+../biostateai/
+├── env
+│   ├── folderArchi.txt
+│   └── rnaseq_env.yml
+├── mgiGenome
+│   ├── gencode.vM35.basic.annotation.gtf
+│   ├── genome
+│   │   ├── genome.1.ht2
+│   │   ├── genome.2.ht2
+│   │   ├── genome.3.ht2
+│   │   ├── genome.4.ht2
+│   │   ├── genome.5.ht2
+│   │   ├── genome.6.ht2
+│   │   ├── genome.7.ht2
+│   │   └── genome.8.ht2
+│   └── GRCm39.primary_assembly.genome.fa
+├── nohup.out
+├── rawfastq
+│   ├── bam
+│   │   ├── allbamcounts.txt
+│   │   ├── allbamcounts.txt.summary
+│   │   ├── allfeaturecounts.tsv
+│   │   ├── Heart_ZT0_1_sorted.bam
+│   │   ├── Heart_ZT0_2_sorted.bam
+│   │   ├── Heart_ZT12_1_sorted.bam
+│   │   ├── Heart_ZT12_2_sorted.bam
+│   │   ├── Liver_ZT0_1_sorted.bam
+│   │   ├── Liver_ZT0_2_sorted.bam
+│   │   ├── Liver_ZT12_1_sorted.bam
+│   │   └── Liver_ZT12_2_sorted.bam
+│   ├── bin
+│   │   ├── 7bamalignment_summary.txt
+│   │   ├── bamstat7
+│   │   │   └── Liver_ZT12_2_flagstat.txt
+│   │   ├── fastplog3
+│   │   │   ├── Heart_ZT0_1_fastp_error.log
+│   │   │   ├── Heart_ZT0_2_fastp_error.log
+│   │   │   ├── Heart_ZT12_1_fastp_error.log
+│   │   │   ├── Heart_ZT12_2_fastp_error.log
+│   │   │   ├── Liver_ZT0_1_fastp_error.log
+│   │   │   ├── Liver_ZT0_2_fastp_error.log
+│   │   │   ├── Liver_ZT12_1_fastp_error.log
+│   │   │   └── Liver_ZT12_2_fastp_error.log
+│   │   ├── S1_fastqc1.log
+│   │   ├── S2_multiqc1.log
+│   │   ├── S4_fastqc2.log
+│   │   ├── S5_multiqc2.log
+│   │   ├── S6_hisat2.log
+│   │   ├── S8_counts.log
+│   │   ├── sammetrics6
+│   │   │   ├── Heart_ZT0_1_alignmentmetrics.txt
+│   │   │   ├── Heart_ZT0_2_alignmentmetrics.txt
+│   │   │   ├── Heart_ZT12_1_alignmentmetrics.txt
+│   │   │   ├── Heart_ZT12_2_alignmentmetrics.txt
+│   │   │   ├── Liver_ZT0_1_alignmentmetrics.txt
+│   │   │   ├── Liver_ZT0_2_alignmentmetrics.txt
+│   │   │   ├── Liver_ZT12_1_alignmentmetrics.txt
+│   │   │   └── Liver_ZT12_2_alignmentmetrics.txt
+│   │   └── samsum6
+│   │       ├── Heart_ZT0_1_alignmentSummary.txt
+│   │       ├── Heart_ZT0_2_alignmentSummary.txt
+│   │       ├── Heart_ZT12_1_alignmentSummary.txt
+│   │       ├── Heart_ZT12_2_alignmentSummary.txt
+│   │       ├── Liver_ZT0_1_alignmentSummary.txt
+│   │       ├── Liver_ZT0_2_alignmentSummary.txt
+│   │       ├── Liver_ZT12_1_alignmentSummary.txt
+│   │       └── Liver_ZT12_2_alignmentSummary.txt
+│   ├── fastp
+│   │   ├── fastprepo
+│   │   │   ├── Heart_ZT0_1_fastp.html
+│   │   │   ├── Heart_ZT0_1_fastp.json
+│   │   │   ├── Heart_ZT0_2_fastp.html
+│   │   │   ├── Heart_ZT0_2_fastp.json
+│   │   │   ├── Heart_ZT12_1_fastp.html
+│   │   │   ├── Heart_ZT12_1_fastp.json
+│   │   │   ├── Heart_ZT12_2_fastp.html
+│   │   │   ├── Heart_ZT12_2_fastp.json
+│   │   │   ├── Liver_ZT0_1_fastp.html
+│   │   │   ├── Liver_ZT0_1_fastp.json
+│   │   │   ├── Liver_ZT0_2_fastp.html
+│   │   │   ├── Liver_ZT0_2_fastp.json
+│   │   │   ├── Liver_ZT12_1_fastp.html
+│   │   │   ├── Liver_ZT12_1_fastp.json
+│   │   │   ├── Liver_ZT12_2_fastp.html
+│   │   │   └── Liver_ZT12_2_fastp.json
+│   │   ├── Heart_ZT0_1R1.fastq.gz
+│   │   ├── Heart_ZT0_1R2.fastq.gz
+│   │   ├── Heart_ZT0_2R1.fastq.gz
+│   │   ├── Heart_ZT0_2R2.fastq.gz
+│   │   ├── Heart_ZT12_1R1.fastq.gz
+│   │   ├── Heart_ZT12_1R2.fastq.gz
+│   │   ├── Heart_ZT12_2R1.fastq.gz
+│   │   ├── Heart_ZT12_2R2.fastq.gz
+│   │   ├── Liver_ZT0_1R1.fastq.gz
+│   │   ├── Liver_ZT0_1R2.fastq.gz
+│   │   ├── Liver_ZT0_2R1.fastq.gz
+│   │   ├── Liver_ZT0_2R2.fastq.gz
+│   │   ├── Liver_ZT12_1R1.fastq.gz
+│   │   ├── Liver_ZT12_1R2.fastq.gz
+│   │   ├── Liver_ZT12_2R1.fastq.gz
+│   │   ├── Liver_ZT12_2R2.fastq.gz
+│   │   └── qcreportstrim
+│   │       ├── Heart_ZT0_1R1_fastqc.html
+│   │       ├── Heart_ZT0_1R1_fastqc.zip
+│   │       ├── Heart_ZT0_1R2_fastqc.html
+│   │       ├── Heart_ZT0_1R2_fastqc.zip
+│   │       ├── Heart_ZT0_2R1_fastqc.html
+│   │       ├── Heart_ZT0_2R1_fastqc.zip
+│   │       ├── Heart_ZT0_2R2_fastqc.html
+│   │       ├── Heart_ZT0_2R2_fastqc.zip
+│   │       ├── Heart_ZT12_1R1_fastqc.html
+│   │       ├── Heart_ZT12_1R1_fastqc.zip
+│   │       ├── Heart_ZT12_1R2_fastqc.html
+│   │       ├── Heart_ZT12_1R2_fastqc.zip
+│   │       ├── Heart_ZT12_2R1_fastqc.html
+│   │       ├── Heart_ZT12_2R1_fastqc.zip
+│   │       ├── Heart_ZT12_2R2_fastqc.html
+│   │       ├── Heart_ZT12_2R2_fastqc.zip
+│   │       ├── Liver_ZT0_1R1_fastqc.html
+│   │       ├── Liver_ZT0_1R1_fastqc.zip
+│   │       ├── Liver_ZT0_1R2_fastqc.html
+│   │       ├── Liver_ZT0_1R2_fastqc.zip
+│   │       ├── Liver_ZT0_2R1_fastqc.html
+│   │       ├── Liver_ZT0_2R1_fastqc.zip
+│   │       ├── Liver_ZT0_2R2_fastqc.html
+│   │       ├── Liver_ZT0_2R2_fastqc.zip
+│   │       ├── Liver_ZT12_1R1_fastqc.html
+│   │       ├── Liver_ZT12_1R1_fastqc.zip
+│   │       ├── Liver_ZT12_1R2_fastqc.html
+│   │       ├── Liver_ZT12_1R2_fastqc.zip
+│   │       ├── Liver_ZT12_2R1_fastqc.html
+│   │       ├── Liver_ZT12_2R1_fastqc.zip
+│   │       ├── Liver_ZT12_2R2_fastqc.html
+│   │       ├── Liver_ZT12_2R2_fastqc.zip
+│   │       ├── multiqc_data
+│   │       │   ├── multiqc_citations.txt
+│   │       │   ├── multiqc_data.json
+│   │       │   ├── multiqc_fastqc.txt
+│   │       │   ├── multiqc_general_stats.txt
+│   │       │   ├── multiqc.log
+│   │       │   ├── multiqc_software_versions.txt
+│   │       │   └── multiqc_sources.txt
+│   │       └── multiqc_report.html
+│   ├── Heart_ZT0_1_R1.fastq.gz
+│   ├── Heart_ZT0_1_R2.fastq.gz
+│   ├── Heart_ZT0_2_R1.fastq.gz
+│   ├── Heart_ZT0_2_R2.fastq.gz
+│   ├── Heart_ZT12_1_R1.fastq.gz
+│   ├── Heart_ZT12_1_R2.fastq.gz
+│   ├── Heart_ZT12_2_R1.fastq.gz
+│   ├── Heart_ZT12_2_R2.fastq.gz
+│   ├── Liver_ZT0_1_R1.fastq.gz
+│   ├── Liver_ZT0_1_R2.fastq.gz
+│   ├── Liver_ZT0_2_R1.fastq.gz
+│   ├── Liver_ZT0_2_R2.fastq.gz
+│   ├── Liver_ZT12_1_R1.fastq.gz
+│   ├── Liver_ZT12_1_R2.fastq.gz
+│   ├── Liver_ZT12_2_R1.fastq.gz
+│   ├── Liver_ZT12_2_R2.fastq.gz
+│   └── qcreports
+│       ├── Heart_ZT0_1_R1_fastqc.html
+│       ├── Heart_ZT0_1_R1_fastqc.zip
+│       ├── Heart_ZT0_1_R2_fastqc.html
+│       ├── Heart_ZT0_1_R2_fastqc.zip
+│       ├── Heart_ZT0_2_R1_fastqc.html
+│       ├── Heart_ZT0_2_R1_fastqc.zip
+│       ├── Heart_ZT0_2_R2_fastqc.html
+│       ├── Heart_ZT0_2_R2_fastqc.zip
+│       ├── Heart_ZT12_1_R1_fastqc.html
+│       ├── Heart_ZT12_1_R1_fastqc.zip
+│       ├── Heart_ZT12_1_R2_fastqc.html
+│       ├── Heart_ZT12_1_R2_fastqc.zip
+│       ├── Heart_ZT12_2_R1_fastqc.html
+│       ├── Heart_ZT12_2_R1_fastqc.zip
+│       ├── Heart_ZT12_2_R2_fastqc.html
+│       ├── Heart_ZT12_2_R2_fastqc.zip
+│       ├── Liver_ZT0_1_R1_fastqc.html
+│       ├── Liver_ZT0_1_R1_fastqc.zip
+│       ├── Liver_ZT0_1_R2_fastqc.html
+│       ├── Liver_ZT0_1_R2_fastqc.zip
+│       ├── Liver_ZT0_2_R1_fastqc.html
+│       ├── Liver_ZT0_2_R1_fastqc.zip
+│       ├── Liver_ZT0_2_R2_fastqc.html
+│       ├── Liver_ZT0_2_R2_fastqc.zip
+│       ├── Liver_ZT12_1_R1_fastqc.html
+│       ├── Liver_ZT12_1_R1_fastqc.zip
+│       ├── Liver_ZT12_1_R2_fastqc.html
+│       ├── Liver_ZT12_1_R2_fastqc.zip
+│       ├── Liver_ZT12_2_R1_fastqc.html
+│       ├── Liver_ZT12_2_R1_fastqc.zip
+│       ├── Liver_ZT12_2_R2_fastqc.html
+│       ├── Liver_ZT12_2_R2_fastqc.zip
+│       ├── multiqc_data
+│       │   ├── multiqc_citations.txt
+│       │   ├── multiqc_data.json
+│       │   ├── multiqc_fastqc.txt
+│       │   ├── multiqc_general_stats.txt
+│       │   ├── multiqc.log
+│       │   ├── multiqc_software_versions.txt
+│       │   └── multiqc_sources.txt
+│       └── multiqc_report.html
+└── scripts
+    ├── count.sh
+    ├── hisat2.sh
+    ├── qc (Copy).sh
+    └── qc.sh
+
+18 directories, 188 files
