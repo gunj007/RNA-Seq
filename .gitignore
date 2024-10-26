@@ -1,11 +1,10 @@
-/docs/pipeline_out/fastprepo/*.html
+/docs/pipeline_out/fastprepo/*.json
 /docs/pipeline_out/qcreports/*.zip
 /docs/pipeline_out/qcreports/multiqc_data
 /docs/pipeline_out/qcreportstrim/*.zip
 /docs/pipeline_out/qcreportstrim/multiqc_data
 /docs/pipeline_out/allbamcounts.txt
 /docs/pipeline_out/allbamcounts.txt.summary
-/bin/fastplog3
 /bin/sammetrics6
 /bin/nohuphisat2
 /docs/pipeline_out/.Rhistory
