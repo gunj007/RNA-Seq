@@ -1,0 +1,150 @@
+Running quality control (qc.sh)... rawfastq
+Running FastQC...
+Completed FastQC...
+Running MultiQC...
+Completed MultiQC...
+QC1 process completed!
+
+
+Running fastp...
+Processed Heart_ZT0_1 
+Processed Heart_ZT0_2 
+Processed Heart_ZT12_1 
+Processed Heart_ZT12_2 
+Processed Liver_ZT0_1 
+Processed Liver_ZT0_2 
+Processed Liver_ZT12_1 
+Processed Liver_ZT12_2 
+Completed trimming...
+
+
+Running FastQC for trimmed fastq files...
+Completed FastQC...
+Running MultiQC...
+Completed MultiQC...
+QC2 process completed!
+
+
+---------------------------------------------------------------------
+################# QC completed... Successfully! ##################  |
+---------------------------------------------------------------------
+
+
+
+Running alignment (hisat2.sh)...
+Bin-folders created...
+Number of trimmed files in rawfastq/fastp: 16
+Genome folder available: genome
+Running HISAT2...
+Processing Heart_ZT0_1...
+SAM Summary file: rawfastq/bin/samsum6/Heart_ZT0_1_alignmentSummary.txt
+Alignment completed: Heart_ZT0_1
+[bam_sort_core] merging from 4 files and 1 in-memory blocks...
+BAM file: rawfastq/bam/Heart_ZT0_1_sorted.bam
+31G	rawfastq/sam/Heart_ZT0_1.sam
+5.2G	rawfastq/bam/Heart_ZT0_1.bam
+SAM file removed
+
+
+Processing Heart_ZT0_2...
+SAM Summary file: rawfastq/bin/samsum6/Heart_ZT0_2_alignmentSummary.txt
+Alignment completed: Heart_ZT0_2
+[bam_sort_core] merging from 29 files and 1 in-memory blocks...
+BAM file: rawfastq/bam/Heart_ZT0_2_sorted.bam
+25G	rawfastq/sam/Heart_ZT0_2.sam
+4.2G	rawfastq/bam/Heart_ZT0_2.bam
+SAM file removed
+
+
+Processing Heart_ZT12_1...
+SAM Summary file: rawfastq/bin/samsum6/Heart_ZT12_1_alignmentSummary.txt
+Alignment completed: Heart_ZT12_1
+[bam_sort_core] merging from 7 files and 1 in-memory blocks...
+BAM file: rawfastq/bam/Heart_ZT12_1_sorted.bam
+33G	rawfastq/sam/Heart_ZT12_1.sam
+5.6G	rawfastq/bam/Heart_ZT12_1.bam
+SAM file removed
+
+
+Processing Heart_ZT12_2...
+SAM Summary file: rawfastq/bin/samsum6/Heart_ZT12_2_alignmentSummary.txt
+Alignment completed: Heart_ZT12_2
+[bam_sort_core] merging from 17 files and 1 in-memory blocks...
+BAM file: rawfastq/bam/Heart_ZT12_2_sorted.bam
+16G	rawfastq/sam/Heart_ZT12_2.sam
+2.4G	rawfastq/bam/Heart_ZT12_2.bam
+SAM file removed
+
+
+Processing Liver_ZT0_1...
+SAM Summary file: rawfastq/bin/samsum6/Liver_ZT0_1_alignmentSummary.txt
+Alignment completed: Liver_ZT0_1
+[bam_sort_core] merging from 30 files and 1 in-memory blocks...
+BAM file: rawfastq/bam/Liver_ZT0_1_sorted.bam
+26G	rawfastq/sam/Liver_ZT0_1.sam
+3.7G	rawfastq/bam/Liver_ZT0_1.bam
+SAM file removed
+
+
+Processing Liver_ZT0_2...
+SAM Summary file: rawfastq/bin/samsum6/Liver_ZT0_2_alignmentSummary.txt
+Alignment completed: Liver_ZT0_2
+[bam_sort_core] merging from 13 files and 1 in-memory blocks...
+BAM file: rawfastq/bam/Liver_ZT0_2_sorted.bam
+38G	rawfastq/sam/Liver_ZT0_2.sam
+5.5G	rawfastq/bam/Liver_ZT0_2.bam
+SAM file removed
+
+
+Processing Liver_ZT12_1...
+SAM Summary file: rawfastq/bin/samsum6/Liver_ZT12_1_alignmentSummary.txt
+Alignment completed: Liver_ZT12_1
+[bam_sort_core] merging from 22 files and 1 in-memory blocks...
+BAM file: rawfastq/bam/Liver_ZT12_1_sorted.bam
+19G	rawfastq/sam/Liver_ZT12_1.sam
+2.7G	rawfastq/bam/Liver_ZT12_1.bam
+SAM file removed
+
+
+Processing Liver_ZT12_2...
+SAM Summary file: rawfastq/bin/samsum6/Liver_ZT12_2_alignmentSummary.txt
+Alignment completed: Liver_ZT12_2
+[bam_sort_core] merging from 15 files and 1 in-memory blocks...
+BAM file: rawfastq/bam/Liver_ZT12_2_sorted.bam
+14G	rawfastq/sam/Liver_ZT12_2.sam
+2.0G	rawfastq/bam/Liver_ZT12_2.bam
+SAM file removed
+
+
+BAM flagsat...
+Flagstat processes: Heart_ZT0_1_sorted.
+Flagstat processes: Heart_ZT0_2_sorted.
+Flagstat processes: Heart_ZT12_1_sorted.
+Flagstat processes: Heart_ZT12_2_sorted.
+Flagstat processes: Liver_ZT0_1_sorted.
+Flagstat processes: Liver_ZT0_2_sorted.
+Flagstat processes: Liver_ZT12_1_sorted.
+Flagstat processes: Liver_ZT12_2_sorted.
+flagstat completed...
+
+
+ Aligmnment completed!
+
+---------------------------------------------------------------------
+########### HISAT2 Alignment completed... Successfully! ########### |
+---------------------------------------------------------------------
+
+
+Performing feature counting with featureCounts...
+Total BAM files: 8
+Feature counting completed successfully.
+
+
+Processing counts file...
+Counts file processed successfully: rawfastq/bam/allfeaturecounts.tsv
+
+
+---------------------------------------------------------------------
+########### RNA-Seq Analysis completed... Successfully! ########### |
+---------------------------------------------------------------------
+
