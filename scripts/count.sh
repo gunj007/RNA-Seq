@@ -12,9 +12,11 @@ input_dir="$1"
 genome_dir="$2"
 gtf_dir="$3"
 
+# Make bin folder for log files
+bin_dir="${input_dir}/bin"
 # Step 1: Run qc.sh for quality control
-echo "Running quality control (qc.sh)..."
-bash ../biostateai/scripts/qc.sh "$input_dir"
+echo "Running quality control (qc.sh)... ${input_dir}"
+bash ../biostateai/scripts/qc.sh "$input_dir" 
 
 # Check if qc.sh ran successfully
 if [ $? -ne 0 ]; then
@@ -22,7 +24,10 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "######### QC step completed successfully #########"
+echo "---------------------------------------------------------------------"
+echo "################# QC completed... Successfully! ##################  |"
+echo "---------------------------------------------------------------------"
+
 echo -e "\n"
 # Step 2: Run hisat.sh for alignment
 echo "Running alignment (hisat2.sh)..."
@@ -34,7 +39,10 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "######### Alignment step completed successfully #########"
+
+echo "---------------------------------------------------------------------"
+echo "########### HISAT2 Alignment completed... Successfully! ########### |"
+echo "---------------------------------------------------------------------"
 echo -e "\n"
 # Step 3: Perform feature counting with featureCounts
 echo "Performing feature counting with featureCounts..."
@@ -48,12 +56,11 @@ if [ "$bam_count" -eq 0 ]; then
   echo "No BAM files found in $input_dir/bam. Exiting..."
   exit 1
 else
-  echo "Number of BAM files found: $bam_count"
+  echo "Total BAM files: $bam_count"
 fi
 
 # Run featureCounts
-featureCounts -p -t gene --extraAttributes gene_name,gene_type --primary -a "$gtf_dir" -o "$input_dir/featurecounts.txt" "${bam_files[@]}"
-
+featureCounts -p -t gene --extraAttributes gene_name,gene_type --primary -a "$gtf_dir" -o "$input_dir/bam/allbamcounts.txt" "${bam_files[@]}" > ${bin_dir}/S8_counts.log 2>&1
 # Check if featureCounts ran successfully
 if [ $? -ne 0 ]; then
   echo "featureCounts step failed. Exiting..."
@@ -64,7 +71,7 @@ echo "Feature counting completed successfully."
 echo -e "\n"
 # Step 4: Process counts file
 echo "Processing counts file..."
-sed '1d' "$input_dir/bam/featurecounts.txt" > "$input_dir/allfeaturecounts.tsv"
+sed '1d' "$input_dir/bam/allbamcounts.txt" > "$input_dir/bam/allfeaturecounts.tsv"
 
 # Check if sed command was successful
 if [ $? -ne 0 ]; then
@@ -72,8 +79,11 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "Counts file processed successfully: counts.tsv"
+echo "Counts file processed successfully: $input_dir/bam/allfeaturecounts.tsv"
 echo -e "\n"
-
-# Display the completion message
-center_text "***RNA-Seq Pipeline Analysis Completed!***"
+# cleanup
+rm $input_dir/bam/*tmp
+rm -rf $input_dir/sam
+echo "---------------------------------------------------------------------"
+echo "########### RNA-Seq Analysis completed... Successfully! ########### |"
+echo "---------------------------------------------------------------------"

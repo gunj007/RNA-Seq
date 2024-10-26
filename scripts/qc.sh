@@ -8,22 +8,26 @@ fi
 
 # Set input directory
 input_dir="$1"
-
+bin_dir="${input_dir}/bin"
 # Create the qc reports directory
 qc_dir="${input_dir}/qcreports"
 fastp_dir="${input_dir}/fastp"
+fastprepo="${fastp_dir}/fastprepo"
+fastplog="${bin_dir}/fastplog3"
+mkdir -p "$fastplog"
 mkdir -p "$qc_dir"
 mkdir -p "$fastp_dir"
-
+mkdir -p "$bin_dir"
+mkdir -p "$fastprepo"
 # Step 1: Run FastQC on all fastq.gz files
 echo "Running FastQC..."
-echo -e "\n"
-fastqc -o "$qc_dir" "$input_dir"/*.fastq.gz --threads 7 --quiet
+fastqc -o "$qc_dir" "$input_dir"/*.fastq.gz --threads 3 > ${bin_dir}/S1_fastqc1.log 2>&1
+echo "Completed FastQC..."
 
 # Step 2: Run MultiQC to aggregate FastQC reports
 echo "Running MultiQC..."
-echo -e "\n"
-multiqc -o "$qc_dir" "$qc_dir"/*.zip
+multiqc -o "$qc_dir" "$qc_dir"/*.zip > ${bin_dir}/S2_multiqc1.log 2>&1
+echo "Completed MultiQC..."
 
 echo "QC1 process completed!"
 echo -e "\n"
@@ -43,20 +47,20 @@ do
   out_r2="$fastp_dir/${base_name}R2.fastq.gz"
   
   # Define output for fastp reports (HTML and JSON)
-  html_report="$fastp_dir/${base_name}_fastp.html"
-  json_report="$fastp_dir/${base_name}_fastp.json"
+  html_report="$fastprepo/${base_name}_fastp.html"
+  json_report="$fastprepo/${base_name}_fastp.json"
   
   # Define error log specific for this sample
-  log_file="$fastp_dir/${base_name}_fastp_error.log"
+  log_file="$fastplog/${base_name}_fastp_error.log"
 
   # Run fastp
-  #fastp -i "$r1" -I "$r2" -o "$out_r1" -O "$out_r2" --detect_adapter_for_pe --thread 9 -h "$html_report" -j "$json_report" > "$log_file" 2>&1 
+  fastp -i "$r1" -I "$r2" -o "$out_r1" -O "$out_r2" --detect_adapter_for_pe --thread 8 -h "$html_report" -j "$json_report" > "$log_file" 2>&1 
 
   # Notify that this sample is done (optional). will make dir for logs
-  echo "Processed $base_name with fastp. Reports saved to $html_report and $json_report."
-  echo -e "\n"
-
+  echo "Processed $base_name "
 done
+echo "Completed trimming..."
+echo -e "\n"
 
 qc2_dir="${fastp_dir}/qcreportstrim"
 mkdir -p "$qc2_dir"
@@ -64,12 +68,13 @@ mkdir -p "$qc2_dir"
 
 # Step 4: Re-run FastQC on all fastq.gz files which are trimmed rm -t as OOM
 echo "Running FastQC for trimmed fastq files..."
-echo -e "\n"
-fastqc -o "$qc2_dir" "$input_dir"/fastp/*.fastq.gz -t 5 -q
+fastqc -o "$qc2_dir" "$input_dir"/fastp/*.fastq.gz -t 3 > ${bin_dir}/S4_fastqc2.log 2>&1
+echo "Completed FastQC..."
 
 # Step 5: Run MultiQC to aggregate Trimmed FastQC reports
 echo "Running MultiQC..."
-multiqc -o "$qc2_dir" "$qc2_dir"/*.zip
+multiqc -o "$qc2_dir" "$qc2_dir"/*.zip > ${bin_dir}/S5_multiqc2.log 2>&1
+echo "Completed MultiQC..."
 
 echo "QC2 process completed!"
 echo -e "\n"
