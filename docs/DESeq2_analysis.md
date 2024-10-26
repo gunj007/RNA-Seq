@@ -1,5 +1,5 @@
 # Differential Expression Analysis
->
+>The package DESeq2 provides methods to test for differential expression by use of negative binomial generalized linear models; the estimates of dispersion and logarithmic fold changes incorporate data-driven prior distributions. This vignette explains the use of the package and demonstrates typical workflows. An RNA-seq workflow on the Bioconductor website covers similar material to this vignette but at a slower pace, including the generation of count matrices from FASTQ files. DESeq2 package version: 1.45.3
 
 #### load packages
 ```rscript
@@ -9,6 +9,11 @@
 
 library(DESeq2)
 library(dplyr)
+library(pheatmap)
+library(matrixStats) 
+library(org.Mm.eg.db)
+library(EnhancedVolcano)
+library(clusterProfiler)
 
 ```
 #### pipeline output is required to be input here `allfeaturecounts.tsv`
@@ -80,7 +85,7 @@ then filter your end results by their mean expression.
 
 write.csv(data, file = "proteincoding_geneids_name.csv")
 ```
-- since we have geneids with there version no.s we can either remove the version otherwise it will through a error or we can extract the gnene_name, gene id so while name we can label with gene name anyway is fine
+> since we have geneids with there version no.s we can either remove the version otherwise it will through a error or we can extract the gnene_name, gene id so while name we can label with gene name anyway is fine
 
 ```rscript
 # rownames were 1st assigned to gene ids
@@ -102,6 +107,8 @@ data <- data[, !(names(data) %in% c("Genename"))]
 ``
 
 #### Deseq counts matrix
+
+[DESeq2 terms](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#the-deseqdataset)
 
 ```rscript
 > typetissue <- factor(c("heart","heart","heart","heart","liver","liver","liver","liver"))
@@ -130,6 +137,8 @@ fitting model and testing
 ```
 
 #### Visualize the correlation matrix as a heatmap, scatter & PCA
+
+
 ```rscript
 # Apply variance-stabilizing transformation
 vs <- vst(ds, blind = FALSE)
@@ -137,7 +146,7 @@ vs <- vst(ds, blind = FALSE)
 cor_matrix <- cor(assay(ds))
 
 ######################2
-library(pheatmap)
+
 pheatmap(cor_matrix, clustering_distance_rows = "euclidean", clustering_distance_cols = "euclidean", 
          main = "Sample Correlation Heatmap")
 
@@ -216,9 +225,7 @@ ggplot(pca_data, aes(PC1, PC2, color = time, shape = typetissue)) +
 
 ```rscript
 # Extract the top variable genes
-library(matrixStats) 
 
-library(org.Mm.eg.db) 
 top_genes <- head(order(rowVars(assay(ds), useNames = TRUE ), decreasing = TRUE), 20)
 heatmap_data <- assay(ds)[top_genes, ]
 #replace gene id to gene name
@@ -434,7 +441,7 @@ ENSMUSG00000033813      Tcea1  490.642842     0.02618329 0.2131760  0.12282477 0
 #### Perform paired contrast analysis and detect DEGs between tissues at each sampling time. Visualize the results using volcano plots. 
 
 ```rscript
-library(EnhancedVolcano)
+
 res0 <- results(ds, name = "typetissue_liver_vs_heart")
 # Volcano plot for tiss--res/deg 
 # DEG analysis between tissues at ZT0 ZT12
@@ -480,7 +487,6 @@ degdata <- res0[which(res0$padj < 0.05), ]
 # Extract normalized counts for these DEGs
 normcounts <- assay(vst(ds))[rownames(degdata), ]
 
-library(pheatmap)
 
 # Generate a heatmap with clustering for rows (genes) and columns (samples)
 pheatmap(normcounts,
@@ -507,8 +513,7 @@ pheatmap(topcounts,
          main = "Top DEGs Expression Patterns")
 
 
-library(clusterProfiler)
-library(org.Mm.eg.db)
+
 
 # Run GO enrichment for the top DEGs
 ego <- enrichGO(gene = topgenes,
