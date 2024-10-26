@@ -9,10 +9,10 @@ There are many readyly available RNA-seq pipeline workflow eg. [nf-core](https:/
   
 </details>
 
-<details>
-  <summary><b>1 Tools & Workflow </b></summary>
+ <details>
+ <summary><b>1. Tools & Workflow </b></summary>
   
-#### 1.1 List of Tools:
+### 1.1 List of Tools:
 
 >  List of tools commonly used in each step of RNA-seq data analysis. Depending on the the requirements select the tools accordingly. 
 
@@ -43,7 +43,7 @@ There are many readyly available RNA-seq pipeline workflow eg. [nf-core](https:/
  #### 2.1 System Info:
   - **System:** _Ubuntu 24.04 LTS_ `lsb_release -a`
   - **RAM - threads:** _7.45G - 11threads_  `htop`
-  - **Specs:** 172G avail `df -h`
+  - **Specs:** 127G avail `df -h`
 
   ---
   
@@ -99,8 +99,9 @@ conda env create -f rnaseq_env.yml
 
 <details open>
   <summary><b>3 Pipeline Scripts & Automation </b></summary>
-  
+ 
 ####  3.1 Run commands:
+### 3.1.1. QC:
   - FastqQC:
     - `-a ,  --adapters`    Specifies a non-default file which contains the list of  adapter sequences which will be explicity searched against the library. The file must contain sets of named adapters in the form name[tab]sequence.  Lines prefixed with a hash will be ignored.
     - `-q --quiet `      Suppress all progress messages on stdout and only report errors.
@@ -108,7 +109,7 @@ conda env create -f rnaseq_env.yml
                     
 
 ```batchfile
-fastqc -o output_dir *.gz --threads 10 -q
+fastqc -o output_dir *.gz -t 3 -q
 ```
 
   - MultiQC:
@@ -122,7 +123,7 @@ fastqc -o output_dir *.gz --threads 10 -q
 ```batchfile
 multiqc -o output_dir *zip
 ```
-
+### 3.1.2. Trimming:
   - Fastp:
     -  `--adapter_sequence` the adapter for read1. For SE data, if not specified, the adapter will be auto-detected. For PE data, this is used if R1/R2 are found not overlapped. (string [=auto]
     -  `--adapter_sequence_r2` the adapter for read2 (PE data only). This is used if R1/R2 are found not overlapped. If not specified, it will be the same as <adapter_sequence> eg ` --adapter_sequence=AGATCGGAAGAGC --adapter_sequence_r2=AGATCGGAAGAGC` if Multiqc report adapter is "Illumina Universal Adapter"
@@ -132,14 +133,22 @@ multiqc -o output_dir *zip
 
 ```batchfile
 # "> /dev/null" as no --quiet option & 2>&1 as ran in to a ERR
-fastp -i "$r1" -I "$r2" -o "$out_r1" -O "$out_r2" \
+fastp -i "$r1" -I "$r2" -o "$out_r1" -O "$out_r2" --detect_adapter_for_pe --thread 8 \
   -h "$html_report" -j "$json_report" > "$log_file" 2>&1 
 ```
-
-  - Samtools:
+### 3.1.3. Genome Build : [Hisat2 Genome index](https://daehwankimlab.github.io/hisat2/howto/)
 ```batchfile
-samtools view -bS .sam > .bam
-# you can also sort by coord incase of other aligners
+# Download Genome wget "link"
+gunzip mgiGenome/GRCm39.primary_assembly.genome.fa.gz 
+# BUID Genome this will create genome1.ht2 multiple files in genome directory
+hisat2-build mgiGenome/GRCm39.primary_assembly.genome.fa genome
+```
+### 3.1.4. Alignment & mapping:
+
+```batchfile
+# RUN Command
+# can use -p 10 for threads but requires more ram might crash ERR-137
+hisat2 -p 3 -x mgiGenome/genome/genome -1 trimmed_R1.fastq.gz -2 trimmed_R2.fastq.gz -S trimmed.sam --quiet  --summary-file alignment_summary.txt --time --met-file metrics.txt
 ```
 
   - Hisat2:
@@ -148,29 +157,28 @@ samtools view -bS .sam > .bam
     - `--quiet`  print nothing to stderr except serious errors
     - `--met-file` send metrics to file at <path> (off)
 
-#### Genome Build : [Hisat2 Genome index](https://daehwankimlab.github.io/hisat2/howto/)
+  - Samtools:
 ```batchfile
-# Download Genome wget "link"
-gunzip mgiGenome/GRCm39.primary_assembly.genome.fa.gz 
-# BUID Genome this will create genome1.ht2 multiple files in genome directory
-hisat2-build mgiGenome/GRCm39.primary_assembly.genome.fa genome
+samtools view -bS .sam > .bam
+# you can also sort by coord incase of other aligners
+samtools sort .bam -o "sorted.bam 
 ```
 
 ```batchfile
-# RUN Command
-# can use -p 10 for threads but requires more ram might crash ERR-137
-hisat2 -x mgiGenome/genome/genome -1 trimmed_R1.fastq.gz -2 trimmed_R2.fastq.gz -S trimmed.sam --quiet  --summary-file alignment_summary.txt --time
+#summary file mapped read
+samtools flagstat sorted.bam >> flagstat.txt
 ```
 
+
+### 3.1.5. Read Quantification:
   - Subread(featureCounts):
     - `-T <int>`            Number of the threads. 1 by default.
-    -  
     - ` -g <string>  `       Specify attribute type in GTF annotation. 'gene_id' by default. Meta-features used for read counting will be extracted from annotation using the provided value.
     -  ` --extraAttributes`   Extract extra attribute types from the provided GTF annotation and include them in the counting output. These attribute types will not be used to group features. If more than one attribute type is provided they should be separated by comma.
 
 
 ```batchfile
-featureCounts -p -t gene --extraAttributes gene_name,gene_type --primary -a annotation.gtf -o counts.txt 1.bam 2.bam nth.bam
+featureCounts -p -t gene --extraAttributes gene_name,gene_type --primary -a annotation.gtf -o counts.txt 1sorted.bam 2.bam nth.bam
 ```
 
   - Preprocessing: 
@@ -181,10 +189,10 @@ sed '1d' counts.txt > counts.tsv
 
 ---
   
-####  3.2 Scripts:
+###  3.2 Scripts:
   - QC Script: [qc.sh](https://github.com/gunj007/RNA-Seq/blob/main/scripts/qc.sh)
 >This script performs _fastqc-multiqc-fastp-fastqc-multiqc_ for multiple files. Just provide input folder containing '.fast.gz', it will create a folder name `qcreports/` and it will create `qcreportstrim/` inside `fastp/` for trimmed reads
-
+> Provide absolute paths to folder and scripts for no interruptions 
 ```batchfile
 bash scripts/qc.sh ~/rawfastq
 ```
@@ -196,15 +204,17 @@ bash scripts/hisat2.sh ~/rawfastq ~/genome ~/annotations.gtf
 ```
 ---
 
-####  3.3 Automation:
+###  3.3 Automation:
 > To perform standard gene count matrix from raw FASTQ files run the [count.sh](https://github.com/gunj007/RNA-Seq/blob/main/scripts/count.sh)] script with the following command
-
+> use nohup it will run process in background/ terminal closed 
 ```batchfile
 #run "bash path_to_script_folder/count.sh path_to_rawfastq_folder/ path_to_genome_folder/ path_to_gtf-gff_file/.gtf
 # main output of this script is featurecounts.tsv
-bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM35.basic.annotation.gtf 
+nohup bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM35.basic.annotation.gtf 
 ```
-- Example Folder Structure: [link]()
+#### [nouhup.out](https://github.com/gunj007/RNA-Seq/blob/main/bin/nohup.out)
+
+- Example Folder Structure: [link](https://github.com/gunj007/RNA-Seq/blob/main/env/folderArchi.txt)
 
 
 </details>
@@ -212,12 +222,12 @@ bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/gencode.vM3
 <details open>
   <summary><b>4. RNAseq- Analysis </b></summary>
 
-#### [DEG](https://github.com/gunj007/RNA-Seq/blob/main/DESeq2_analysis.md)
-#### [GSEA]()
+#### [DEG](https://github.com/gunj007/RNA-Seq/blob/main/docs/DESeq2_analysis.md)
+#### [Function Enrichment ](https://github.com/gunj007/RNA-Seq/blob/main/docs/Function_enrichment_analysis.md)
 
 
 
  </details>
 
-### [Task_results](https://github.com/gunj007/RNA-Seq/blob/main/Task_results.md)
+### [Task_Index_results](https://github.com/gunj007/RNA-Seq/blob/main/docs/Task_results.md)
 ---
