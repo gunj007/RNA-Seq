@@ -1,6 +1,6 @@
 
 
-## RAN-Seq END TO END Analysis Index
+## RNa-Seq Analysis Index
 
 <details>
   <summary><i>INFO</i></summary>
