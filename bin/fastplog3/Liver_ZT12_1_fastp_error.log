@@ -1,0 +1,49 @@
+Detecting adapter sequence for read1...
+>Illumina TruSeq Adapter Read 1
+AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+
+Detecting adapter sequence for read2...
+>Illumina TruSeq Adapter Read 2
+AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+Read1 before filtering:
+total reads: 18807831
+total bases: 1899590931
+Q20 bases: 1884082283(99.1836%)
+Q30 bases: 1840956204(96.9133%)
+
+Read2 before filtering:
+total reads: 18807831
+total bases: 1899590931
+Q20 bases: 1873123645(98.6067%)
+Q30 bases: 1810690571(95.32%)
+
+Read1 after filtering:
+total reads: 18732693
+total bases: 1880412842
+Q20 bases: 1865543622(99.2093%)
+Q30 bases: 1823118111(96.9531%)
+
+Read2 after filtering:
+total reads: 18732693
+total bases: 1880382580
+Q20 bases: 1858583692(98.8407%)
+Q30 bases: 1797745507(95.6053%)
+
+Filtering result:
+reads passed filter: 37465386
+reads failed due to low quality: 148754
+reads failed due to too many N: 844
+reads failed due to too short: 678
+reads with adapter trimmed: 2008789
+bases trimmed due to adapters: 23356536
+
+Duplication rate: 44.0263%
+
+Insert size peak (evaluated by paired-end reads): 128
+
+JSON report: rawfastq/fastp/fastprepo/Liver_ZT12_1_fastp.json
+HTML report: rawfastq/fastp/fastprepo/Liver_ZT12_1_fastp.html
+
+fastp -i rawfastq/Liver_ZT12_1_R1.fastq.gz -I rawfastq/Liver_ZT12_1_R2.fastq.gz -o rawfastq/fastp/Liver_ZT12_1R1.fastq.gz -O rawfastq/fastp/Liver_ZT12_1R2.fastq.gz --detect_adapter_for_pe --thread 8 -h rawfastq/fastp/fastprepo/Liver_ZT12_1_fastp.html -j rawfastq/fastp/fastprepo/Liver_ZT12_1_fastp.json 
+fastp v0.23.2, time used: 43 seconds
