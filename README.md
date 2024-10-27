@@ -6,7 +6,12 @@
 
 >  RNA-Seq is a sequencing method used to determine gene expression levels. [RNA-Seq](https://pmc.ncbi.nlm.nih.gov/articles/PMC6096346/) data originates from extracted RNA that was reverse transcribed into DNA.
 There are many readyly available RNA-seq pipeline workflow eg. [nf-core](https://nf-co.re/rnaseq/3.14.0/), [PiGx](https://bioinformatics.mdc-berlin.de/pigx_docs/pigx-rna-seq.html), etc. [Galaxy](https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/ref-based/tutorial.html) is a popular framework software for constructing and managing the execution of workflows. 
-  
+
+***
+## [Task Index](https://github.com/gunj007/RNA-Seq/blob/main/docs/Task_results.md)
+
+
+
 </details>
 
  <details>
@@ -229,5 +234,5 @@ nohup bash scripts/count.sh ~/biostateai/raw_fastq ~/mgiGenome ~/mgiGenome/genco
 
  </details>
 
-### [Task_Index_results](https://github.com/gunj007/RNA-Seq/blob/main/docs/Task_results.md)
+
 ---
