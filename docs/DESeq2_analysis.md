@@ -1,7 +1,12 @@
 # Differential Expression Analysis
 >The package DESeq2 provides methods to test for differential expression by use of negative binomial generalized linear models; the estimates of dispersion and logarithmic fold changes incorporate data-driven prior distributions. This vignette explains the use of the package and demonstrates typical workflows. An RNA-seq workflow on the Bioconductor website covers similar material to this vignette but at a slower pace, including the generation of count matrices from FASTQ files. DESeq2 package version: 1.45.3
 
-#### load packages
+
+### Data Pre-processing & Protein coding Genes
+> Pipeline output is required to be input here `allfeaturecounts.tsv`. This file contains various gene type such as transcribed/translated/siRNA/miRNA etc., hence data needs Preprocessing.
+> Subset  data protein _coding can be done by using `grep` while generating featurecounts file or can be done using `R(dplyr)`
+> Before loading the data install following packages most via. Biomanager few locally
+
 ```rscript
 #if (!requireNamespace("BiocManager", quietly = TRUE))
 #   install.packages("BiocManager")
@@ -16,7 +21,6 @@ library(EnhancedVolcano)
 library(clusterProfiler)
 
 ```
-#### pipeline output is required to be input here `allfeaturecounts.tsv`
 
 ```rscript
 setwd("C:/Users/GUNJAN/Desktop/biostateAi/RNA-Seq/docs/pipeline_out")
@@ -55,12 +59,12 @@ ENSMUSG00000104017.2                                    0
 > 
 ```
 
-###  tabular format with protein coding genes ID as rows and samples as columns.
-> if added gene names can be dropped
-- since in the script count file was not cleaned, 1st remove unnessecary columns, except gene_name and gene type,2nd rename colmns,3rd subset data to protein_coding as gene_type then drop gene_type column,
-since there are many 0 counts will set sum to >4 as # Removing the singletons
-> Note: it is better practice to filter at 0 now
-then filter your end results by their mean expression. 
+> Gene names can be dropped if not required
+> 1st remove unnessecary columns, except .bams counts, gene_name and gene_type
+> 2nd rename colmns
+> 3rd subset data to protein_coding == gene_type then drop gene_type column
+> since there are many 0 counts we'll set Rows sum to >4 as removing the singletons / zero is good practice
+> Note: it is better practice to filter out 0 now then filter your end results by their mean expression. 
 
 ```rscript
 > data <- data1 %>% filter(gene_type == "protein_coding")
@@ -85,7 +89,8 @@ then filter your end results by their mean expression.
 
 write.csv(data, file = "proteincoding_geneids_name.csv")
 ```
-> since we have geneids with there version no.s we can either remove the version otherwise it will through a error or we can extract the gnene_name, gene id so while name we can label with gene name anyway is fine
+> since we have geneids with there version no.s we can either remove the version otherwise it will through a error or we can extract the gnene_name, gene id so we can fetch name we can label with gene name anyway is fine
+> Biomart and sone other packages were tried but version no. for ensembl_ids is ERR
 
 ```rscript
 # rownames were 1st assigned to gene ids
@@ -104,10 +109,10 @@ write.csv(data, file = "proteincoding_geneids_name.csv")
 
 # drop gene_name
 data <- data[, !(names(data) %in% c("Genename"))]
-``
+```
 
-#### Deseq counts matrix
-
+### Deseq counts matrix
+> before loading our cleaned data provide some/condition/metadata for samples loading
 [DESeq2 terms](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#the-deseqdataset)
 
 ```rscript
@@ -136,7 +141,8 @@ final dispersion estimates
 fitting model and testing
 ```
 
-#### Visualize the correlation matrix as a heatmap, scatter & PCA
+### Data variation 
+>Visualize the correlation matrix as a heatmap, scatter & plot on normalized data PCA
 
 
 ```rscript
@@ -145,7 +151,7 @@ vs <- vst(ds, blind = FALSE)
 # Calculate the correlation matrix
 cor_matrix <- cor(assay(ds))
 
-######################2
+############################################################plot2
 
 pheatmap(cor_matrix, clustering_distance_rows = "euclidean", clustering_distance_cols = "euclidean", 
          main = "Sample Correlation Heatmap")
@@ -156,7 +162,9 @@ normalized_counts <- counts(ds, normalized = TRUE)
 > colnames(normalized_counts)
 [1] "Heart_ZT0_1"  "Heart_ZT0_2"  "Heart_ZT12_1" "Heart_ZT12_2" "Liver_ZT0_1" 
 [6] "Liver_ZT0_2"  "Liver_ZT12_1" "Liver_ZT12_2"
-#######################3plot
+
+############################################################3plot
+
 normalized_counts <- counts(ds, normalized = TRUE)
 scatter_plot <- function(sample1, sample2, data) {
   plot(data[, sample1], data[, sample2],
@@ -170,23 +178,17 @@ scatter_plot <- function(sample1, sample2, data) {
 colnames(normalized_counts)
 scatter_plot(4, 8, normalized_counts)
 
-
-
 # Order genes by their means
-normalized_counts_ordered <- 
-
-
 pcaData <- plotPCA(vs,intgroup = c("typetissue","time"), returnData=TRUE)
 
 percentVar <- round(100 * attr(pcaData, "percentVar"))
-########333 5vsPCA
+#################################################################5plot
 ggplot(pcaData, aes(PC1, PC2, color=time, shape=typetissue)) +
   geom_point(size=2) +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
   ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
   coord_fixed()
 ```
--  zvbfgfgb
 
 ```rscript
 
@@ -195,7 +197,7 @@ normalized_counts[order(row_means, decreasing = TRUE), ]
 ################ Create a heatmap 4
 # Order genes by their means
 normalized_counts_ordered <- normalized_counts[order(row_means, decreasing = TRUE), ]
-
+###########################################################4plot
 # Create a heatmap genes
 pheatmap(normalized_counts_ordered,
          cluster_rows = TRUE,
@@ -209,6 +211,9 @@ pca_variance_explained <- pca_variance / sum(pca_variance)
 pca_data <- as.data.frame(pca_result$x)
 pca_data$condition <- colData(ds)$org 
 
+
+##########################################################
+
 ggplot(pca_data, aes(PC1, PC2, color = time, shape = typetissue)) +
   geom_point(size = 2) +
   xlab(paste0("PC1: ", percentVar[1], "% variance")) +
@@ -220,12 +225,12 @@ ggplot(pca_data, aes(PC1, PC2, color = time, shape = typetissue)) +
 #####
 ```
 
-- dgfbsxfvsdv top variablr genes gene id to genename
+> for lable you can use geneids or names for names can conver ids to gene name by loading the musculus mouse data
 
 
 ```rscript
 # Extract the top variable genes
-
+#####################################################6plot
 top_genes <- head(order(rowVars(assay(ds), useNames = TRUE ), decreasing = TRUE), 20)
 heatmap_data <- assay(ds)[top_genes, ]
 #replace gene id to gene name
@@ -264,7 +269,7 @@ plotDispEsts(ds)
 ```
 
 #### Differential Expression Analysis: 
-i. Use a factorial design in DESeq2 to model main effects (tissue and sampling time) and their interaction (formula: ~ tissue + time + tissue:time). Clearly report the statistical analysis of differentially expressed genes (DEGs) with 1) tissue-specific, 2) time-specific, and 3) interaction effects. 
+>  differentially expressed genes (DEGs) with 1) tissue-specific, 2) time-specific, and 3) interaction effects. 
 
 
 ```rscript
@@ -273,7 +278,7 @@ i. Use a factorial design in DESeq2 to model main effects (tissue and sampling t
 [3] "time_ZT12_vs_ZT0"          "typetissueliver.timeZT12" 
 ```
 
-- now we get 3names from results below deg for tissue change the name and o the same other 2 "time_ZT12_vs_ZT0"          "typetissueliver.timeZT12"
+> now we get 3names from results below deg for tissue change the name and o the same other 2 "time_ZT12_vs_ZT0"      "typetissueliver.timeZT12"
 
 ```rscript
 > # Tissue-specific DEGs
@@ -351,11 +356,8 @@ ENSMUSG00000104217 ENSMUSG00000033813 ENSMUSG00000033793
 > 
 > # Now assign GeneName as rownames
 > rownames(degtiss) <- tiss$GeneName
-> 
-> 
-> 
-> 
-> 
+ 
+
 > ensemblIDs = rownames(restiss)
 > head(ensemblIDs)
 [1] "ENSMUSG00000051951" "ENSMUSG00000025900" "ENSMUSG00000025902"
@@ -474,8 +476,8 @@ gene_symbols <- mapIds(org.Mm.eg.db,
 res0$gene_symbol <- gene_symbols
 
 ```
-#### heatmaps top10degs display the expression patterns of the top DEGs and explain their biological significance. 
-do the same for all 3 groups 
+#### Heatmaps top10degs display the expression patterns of the top DEGs and explain their biological significance. 
+>do the same for all 3 groups 
 ```rscript
 #do the same all groups tiss/0, int/12 , time0vs12
 
@@ -511,8 +513,6 @@ pheatmap(topcounts,
          clustering_method = "complete",
          color = colorRampPalette(c("navy", "white", "firebrick"))(50),
          main = "Top DEGs Expression Patterns")
-
-
 
 
 # Run GO enrichment for the top DEGs
